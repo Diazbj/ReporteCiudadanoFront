@@ -1,0 +1,50 @@
+<!-- Asegúrate de incluir Bootstrap 5 y Font Awesome en tu proyecto -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+    <div class="text-center mb-4">
+      <hr>
+      <h1 class="h4 fw-bold">Iniciar Sesión</h1>
+      <hr>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          <input type="text" id="email" class="form-control" placeholder="Ingrese su correo electrónico" formControlName="email">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          <input type="password" id="password" class="form-control" placeholder="Ingrese su contraseña" formControlName="password">
+        </div>
+      </div>
+
+      <div class="mb-3 text-end">
+        <a id="recuperarContrasena" routerLink="/recuperar-password" class="text-decoration-none">¿Olvidó su contraseña?</a>
+      </div>
+
+      <div *ngIf="cargando" class="d-flex justify-content-center my-3">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="submit" id="buttonIngresar" class="btn btn-primary" [disabled]="loginForm.invalid">
+          <i class="fas fa-sign-in-alt me-2"></i>Ingresar
+        </button>
+        <button type="button" id="cancelar" class="btn btn-secondary" (click)="goToInicio()">
+          <i class="fas fa-times me-2"></i>Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

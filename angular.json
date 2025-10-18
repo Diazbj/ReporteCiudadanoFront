@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ReporteCiudadanoFront": {
+    "ProyectoAlertasFront": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/reporte-ciudadano-front",
+            "outputPath": "dist/proyecto-alertas-front",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -27,9 +27,14 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/mapbox-gl/dist/mapbox-gl.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -59,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ReporteCiudadanoFront:build:production"
+              "buildTarget": "ProyectoAlertasFront:build:production"
             },
             "development": {
-              "buildTarget": "ReporteCiudadanoFront:build:development"
+              "buildTarget": "ProyectoAlertasFront:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -94,6 +99,6 @@
     }
   },
   "cli": {
-    "analytics": "50cca39c-54a0-4d23-98be-54690d4def11"
+    "analytics": "d8f511e8-e730-4347-9bc6-b5a07a570e57"
   }
 }

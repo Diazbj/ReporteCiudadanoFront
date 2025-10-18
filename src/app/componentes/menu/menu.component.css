@@ -1,0 +1,44 @@
+.menu{
+    border-radius: 20px;
+    background-color: #0B1F3A;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    justify-items: center;
+    height: 100%;
+}
+
+.menu > div{
+    padding: 1rem;
+}
+
+.menu > div > h1{
+    color: white;
+    font-size: 35px;
+}
+
+.menu > div > h1 > i{
+    color: white;
+}
+
+.menu div:last-child{
+    width: 80%;
+}
+
+.li-menu{
+    display: flex;
+    justify-content: center;
+}
+
+.li-menu i{
+    color: white !important;
+    cursor: pointer;
+}
+
+.li-menu:not(:last-child){
+    padding-bottom: 1.5rem;
+}
+
+#cerrarSesion{
+    grid-column: span 2;
+}
