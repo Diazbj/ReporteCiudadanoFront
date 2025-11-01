@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../servicios/auth.service';
 import { TokenService } from '../../servicios/token.service';
 import { LoginDTO } from '../../dto/login-dto';
@@ -10,7 +10,7 @@ import { UsuarioNuevoCodigoDTO } from '../../dto/usuarios/usuario-nuevo-codigo-d
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterOutlet, RouterModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuarioService } from '../../../servicios/usuario.service';
 
 @Component({
   selector: 'app-actualizar-password',
-  imports: [RouterOutlet,RouterModule,ReactiveFormsModule],
+  imports: [RouterModule,ReactiveFormsModule],
   templateUrl: './actualizar-password.component.html',
   styleUrl: './actualizar-password.component.css'
 })

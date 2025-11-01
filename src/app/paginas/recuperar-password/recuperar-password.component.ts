@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../servicios/auth.service';
 import Swal from 'sweetalert2';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '../login/login.component';
 import { UsuarioNuevoCodigoDTO } from '../../dto/usuarios/usuario-nuevo-codigo-dto';
@@ -10,7 +10,7 @@ import { UsuarioNuevoCodigoDTO } from '../../dto/usuarios/usuario-nuevo-codigo-d
 @Component({
   selector: 'app-recuperar-password',
   standalone:true,
-  imports: [ReactiveFormsModule, RouterOutlet, RouterModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule],
 
   templateUrl: './recuperar-password.component.html',
   styleUrls: ['./recuperar-password.component.css']

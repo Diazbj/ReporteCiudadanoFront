@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../servicios/usuario.service';
 import { CrearUsuarioDTO } from '../../../dto/usuarios/crear-usuario-dto';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, ReactiveFormsModule,CommonModule],
+  imports: [RouterModule, ReactiveFormsModule,CommonModule],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })

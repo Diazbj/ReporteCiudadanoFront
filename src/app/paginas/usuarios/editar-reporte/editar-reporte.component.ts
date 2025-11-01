@@ -2,10 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReporteService } from '../../../servicios/reporte.service';
-import { EditarReporteDTO } from '../../../dto/editar-reporte-dto';
+import { ReporteDTO } from '../../../dto/reporte-dto';
 import { CommonModule } from '@angular/common';
 import { MapaService } from '../../../servicios/mapa.service';
 import { Subscription } from 'rxjs';
+import { EditarReporteDTO } from '../../../dto/editar-reporte-dto';
+import { LngLat } from 'mapbox-gl';
 
 @Component({
   selector: 'app-editar-reporte',
@@ -34,7 +36,6 @@ export class EditarReporteComponent implements OnInit, OnDestroy {
     this.reporteForm = this.fb.group({
       titulo: ['', Validators.required],
       categoria: ['', Validators.required],
-      ciudad: ['', Validators.required],
       descripcion: ['', Validators.required],
       imagen: this.fb.array([]),
       ubicacion: this.fb.group({
@@ -44,11 +45,10 @@ export class EditarReporteComponent implements OnInit, OnDestroy {
     });
 
     this.reporteService.obtenerReportePorId(this.reporteId).subscribe({
-      next: (reporte: EditarReporteDTO) => {
+      next: (reporte: ReporteDTO) => {
         this.reporteForm.patchValue({
           titulo: reporte.titulo,
           categoria: reporte.categoria,
-          ciudad: reporte.ciudad,
           descripcion: reporte.descripcion,
           ubicacion: {
             latitud: reporte.ubicacion.latitud,
@@ -56,9 +56,9 @@ export class EditarReporteComponent implements OnInit, OnDestroy {
           }
         });
 
-        if (reporte.imagen && Array.isArray(reporte.imagen)) {
+        if (reporte.imagenes && Array.isArray(reporte.imagenes)) {
           const imagenFormArray = this.reporteForm.get('imagen') as FormArray;
-          reporte.imagen.forEach((imgUrl: string) => {
+          reporte.imagenes.forEach((imgUrl: string) => {
             imagenFormArray.push(this.fb.control(imgUrl));
           });
         }
@@ -70,7 +70,7 @@ export class EditarReporteComponent implements OnInit, OnDestroy {
           ];
           this.mapaService.crearMapa();
 
-          this.marcadorSubscription = this.mapaService.agregarMarcador().subscribe((coords) => {
+          this.marcadorSubscription = this.mapaService.agregarMarcador().subscribe((coords: LngLat) => {
             this.reporteForm.get('ubicacion.latitud')?.setValue(coords.lat);
             this.reporteForm.get('ubicacion.longitud')?.setValue(coords.lng);
           });
