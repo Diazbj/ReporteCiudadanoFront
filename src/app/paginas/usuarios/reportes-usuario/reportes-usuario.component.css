@@ -1,0 +1,27 @@
+.contenedor-reportes {
+  padding: 1rem;
+  max-width: 800px;
+  margin: auto;
+}
+
+.tarjeta-reporte {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.galeria img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+}

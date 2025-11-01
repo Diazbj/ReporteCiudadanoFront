@@ -1,0 +1,78 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+          <h2 class="mb-4 text-center text-primary">
+            <i class="fas fa-edit"></i> Editar Reporte
+          </h2>
+
+          <form [formGroup]="reporteForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-heading"></i> Título:</label>
+              <input type="text" class="form-control" formControlName="titulo" placeholder="Ingresa el título">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-list"></i> Categoría:</label>
+              <input type="text" class="form-control" formControlName="categoria" placeholder="Categoría del reporte">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-city"></i> Ciudad:</label>
+              <input type="text" class="form-control" formControlName="ciudad" placeholder="Ciudad donde ocurrió">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-align-left"></i> Descripción:</label>
+              <textarea class="form-control" formControlName="descripcion" rows="4" placeholder="Describe el incidente"></textarea>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label"><i class="fas fa-image"></i> Seleccionar imágenes:</label>
+              <input type="file" class="form-control" (change)="onImagenSeleccionada($event)" multiple>
+            </div>
+
+            <div *ngIf="imagenesFormArray.controls.length > 0" class="mb-4">
+              <h5><i class="fas fa-images"></i> Imágenes cargadas:</h5>
+              <div class="row">
+                <div class="col-md-4 mb-3" *ngFor="let img of imagenesFormArray.controls; let i = index">
+                  <div class="card shadow-sm h-100">
+                    <img [src]="img.value" alt="Imagen cargada" class="card-img-top" style="object-fit: cover; height: 180px;">
+                    <div class="card-body p-2 text-center">
+                      <button type="button" class="btn btn-outline-danger btn-sm" (click)="eliminarImagen(i)">
+                        <i class="fas fa-trash-alt"></i> Eliminar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div formGroupName="ubicacion" class="mb-4">
+              <h5 class="mb-3"><i class="fas fa-map-marker-alt"></i> Ubicación</h5>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Latitud:</label>
+                  <input type="text" class="form-control" formControlName="latitud" placeholder="Latitud">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Longitud:</label>
+                  <input type="text" class="form-control" formControlName="longitud" placeholder="Longitud">
+                </div>
+              </div>
+            </div>
+
+            <div id="mapa" class="border rounded mb-4" style="height: 300px;"></div>
+
+            <button type="submit" class="btn btn-success w-100" [disabled]="reporteForm.invalid">
+              <i class="fas fa-save"></i> Guardar Cambios
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
-import { TokenService } from '../../service/token.service';
+import { AuthService } from '../../servicios/auth.service';
+import { TokenService } from '../../servicios/token.service';
 import { LoginDTO } from '../../dto/login-dto';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
-import { UsuarioNuevoCodigoDTO } from '../../dto/usuario/usuario-nuevo-codigo-dto';
+import { UsuarioNuevoCodigoDTO } from '../../dto/usuarios/usuario-nuevo-codigo-dto';
 
 @Component({
   selector: 'app-login',

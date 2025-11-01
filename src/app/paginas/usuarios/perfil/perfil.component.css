@@ -1,0 +1,17 @@
+.contActualizarPerfilForm{
+    text-align: center;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    gap: 1rem;
+}
+
+.contActualizarPerfilForm div{
+    width: 100%;
+}
+
+.contActualizarPerfilForm > :last-child{
+    grid-column: span 2;
+}

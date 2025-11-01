@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: #1F2937;
+  font-family: 'Inter', sans-serif;
+  box-sizing: content-box;
+}
+
+hr{
+	background-color: #0B1F3A;
+	height: 5px;
+	width: 100%;
+  opacity: 1;
+}
+
+h1{
+  color: #0B1F3A;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+input{
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 30px;
+  min-width: 350px;
+  max-height: 34px;
+  text-align: center;
+}
+
+input:hover{
+  border-radius: 10px;
+}
+
+button{
+  background-color: white;
+  border: none;
+  border: 1px solid #0B1F3A;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button:disabled{
+  color: #D1D5DB;
+  border: 1px solid #D1D5DB;
+}
+
+button:not(:disabled):hover{
+  background-color: #0B1F3A;
+  color: white;
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+}
+
+.main{
+  background-color: #DCEBFA;
+  height: 100vh;
+  padding: 6rem 3rem;
+}
+
+.cont-main{
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  grid-template-columns: 2fr 1fr;
+}
+
+.titulo{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  justify-items: center;
+  padding-top: 1.5rem;
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.input-with-icon i {
+  margin-right: 10px;
+  color: #D1D5DB;
+  font-size: 1.2em;
+}
+
+.input-with-icon i:hover {
+  cursor: pointer;
+}
+
+.input-with-icon input {
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
+.cont-button{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 2rem;
+}
+
+.cont-button button{
+  border-radius: 10px;
+  height: 34px;
+  cursor: pointer;
+}
+
+.cont-label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

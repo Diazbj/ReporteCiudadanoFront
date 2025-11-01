@@ -1,0 +1,76 @@
+<div class="container mt-4" *ngIf="reporte; else loading">
+  <div class="row">
+    <!-- Main Content -->
+    <div class="col-lg-8">
+      <!-- Report Details Card -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+          <h1 class="card-title mb-0">{{ reporte.titulo }}</h1>
+        </div>
+        <div class="card-body">
+          <!-- Image Carousel -->
+          <div *ngIf="reporte.imagenes && reporte.imagenes.length > 0" id="carouselReporte" class="carousel slide mb-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div *ngFor="let img of reporte.imagenes; let i = index" class="carousel-item" [class.active]="i === 0">
+                <img [src]="img" class="d-block w-100" alt="Imagen del reporte {{i + 1}}">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselReporte" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselReporte" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+          <p class="card-text">{{ reporte.descripcion }}</p>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <app-comentarios [reporteId]="reporteId"></app-comentarios>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <!-- Status and Info Card -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Detalles del Reporte</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Estado:</strong>
+              <span class="badge bg-primary rounded-pill">{{ reporte.estadoActual }}</span>
+            </li>
+            <li class="list-group-item"><strong>Categoría:</strong> {{ reporte.categoria }}</li>
+            <li class="list-group-item"><strong>Reportado por:</strong> {{ reporte.usuario }}</li>
+            <li class="list-group-item"><strong>Fecha:</strong> {{ reporte.fechaCreacion | date: 'dd/MM/yyyy HH:mm' }}</li>
+            <li class="list-group-item"><strong>Importancia:</strong> {{ reporte.cantidadImportante }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Map Card -->
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="card-title mb-0">Ubicación</h5>
+        </div>
+        <div class="card-body p-0">
+          <div id="mapa" style="height: 300px; width: 100%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="mt-2">Cargando reporte...</p>
+  </div>
+</ng-template>

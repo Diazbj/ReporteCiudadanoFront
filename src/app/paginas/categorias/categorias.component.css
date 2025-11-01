@@ -1,0 +1,20 @@
+.contCategoriaForm{
+    text-align: center;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    gap: 1rem;
+}
+
+.contCategoriaForm > div{
+    width: 100%;
+}
+
+.login-form{
+    display: flex;
+    flex-flow: column;
+    gap: 0.3rem;
+    align-items: center;
+}

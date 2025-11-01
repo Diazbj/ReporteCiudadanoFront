@@ -1,0 +1,30 @@
+.cont-home-inic-repo > * {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.cont-home-inic-repo{
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    grid-template-rows: auto;
+}
+
+.cont-home-inic-repo [data-bs-spy="scroll"] {
+    max-height: 100vh; /* Ajusta según necesites */
+    overflow-y: auto;
+    /*padding-right: 39px; /* Opcional: espacio para que no se corte el contenido por el scroll */
+}
+
+.cont-home-inic-repo [data-bs-spy="scroll"]::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cont-home-inic-repo [data-bs-spy="scroll"]::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.accordion-button{
+    width: 91% !important;
+}
+

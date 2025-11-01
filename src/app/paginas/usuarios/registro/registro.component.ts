@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UsuarioService } from '../../../service/usuario.service';
-import { CrearUsuarioDTO } from '../../../dto/usuario/crear-usuario-dto';
+import { UsuarioService } from '../../../servicios/usuario.service';
+import { CrearUsuarioDTO } from '../../../dto/usuarios/crear-usuario-dto';
 import { MensajeDTO } from '../../../dto/mensaje-dto';
 import { CommonModule } from '@angular/common';
 

@@ -1,0 +1,13 @@
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+#mapa {
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}

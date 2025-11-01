@@ -1,0 +1,40 @@
+<div class="cont-home-inic-repo">
+    <div data-bs-spy="scroll">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div *ngFor="let reporte of reportesDTO; let i = index" class="reporte-item accordion-item" >
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapse-' + i" aria-expanded="false" [attr.aria-controls]="'flush-collapse-' + i">
+                        {{reporte.titulo}}
+                    </button>
+                </h2>
+                <div [attr.id]="'flush-collapse-' + i" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <!-- Categoría con estilo de etiqueta -->
+                        <span class="badge mb-2" [ngClass]="obtenerColorPorCategoria(reporte.categoria)">
+                            {{ reporte.categoria }}
+                        </span>
+                        <!-- Fecha de creación formateada -->
+                        <p class="mb-1">
+                            <strong>Fecha de creación:</strong>
+                            <!--{{ reporte.fechaCreacion | date: 'fullDate' }}-->
+                             {{ reporte.fechaCreacion }}
+                        </p>
+                        <!-- Descripción -->
+                        <p class="mb-1">
+                            <strong>Descripción:</strong> {{ reporte.descripcion }}
+                        </p>
+                        <!-- Cantidad importante -->
+                        <p class="mb-2">
+                            <strong>Cantidad importante:</strong> {{ reporte.cantidadImportante }}
+                        </p>
+                        <!-- Botón para visualizar detalles -->
+                        <button class="btn btn-outline-secondary btn-sm" (click)="visualizarDetalle(reporte)">
+                            <i class="bi bi-eye"></i> Visualizar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-mapa></app-mapa>
+</div>
