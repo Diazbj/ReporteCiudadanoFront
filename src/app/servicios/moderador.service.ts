@@ -16,11 +16,8 @@ import { environment } from '../../environments/environment';
 
 export class ModeradorService {
 
-<<<<<<< HEAD
-  private apiUrl = "https://reportesciudadanos.onrender.com/api/moderador";
-=======
+
   private apiUrl = `${environment.apiUrl}/moderador`;
->>>>>>> 7a25fab (configuración deploy)
 
   constructor(
     private http: HttpClient,
