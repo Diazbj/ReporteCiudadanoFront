@@ -5,6 +5,7 @@ export interface ReporteDTO {
     usuario: string,
     titulo: string,
     categoria: string,
+    ciudad: string, // Added missing property
     descripcion: string,
     ubicacion: UbicacionDTO,
     estadoActual: string,

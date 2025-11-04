@@ -1,13 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReporteService } from '../../../servicios/reporte.service';
 import { ReporteDTO } from '../../../dto/reporte-dto';
 import { CommonModule } from '@angular/common';
 import { MapaService } from '../../../servicios/mapa.service';
-import { Subscription } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { EditarReporteDTO } from '../../../dto/editar-reporte-dto';
-import { LngLat } from 'mapbox-gl';
+import { ImagenService } from '../../../servicios/imagen.service';
+import Swal from 'sweetalert2';
+import { ModeradorService } from '../../../servicios/moderador.service';
+import { ObtenerCategoriaDTO } from '../../../dto/obtener-categoria-dto';
+
+interface ImageControl {
+  url: string;
+  file: File | null;
+  isNew: boolean;
+}
 
 @Component({
   selector: 'app-editar-reporte',
@@ -16,18 +25,22 @@ import { LngLat } from 'mapbox-gl';
   templateUrl: './editar-reporte.component.html',
   styleUrls: ['./editar-reporte.component.css']
 })
-export class EditarReporteComponent implements OnInit, OnDestroy {
+export class EditarReporteComponent implements OnInit {
 
   reporteForm!: FormGroup;
   reporteId!: string;
-  marcadorSubscription!: Subscription;
+  
+  imagenesEliminadas: string[] = [];
+  categorias: ObtenerCategoriaDTO[] = [];
 
   constructor(
     private fb: FormBuilder,
     private reporteService: ReporteService,
     private route: ActivatedRoute,
     private router: Router,
-    private mapaService: MapaService
+    private mapaService: MapaService,
+    private imagenService: ImagenService,
+    private moderadorService: ModeradorService
   ) {}
 
   ngOnInit(): void {
@@ -36,19 +49,35 @@ export class EditarReporteComponent implements OnInit, OnDestroy {
     this.reporteForm = this.fb.group({
       titulo: ['', Validators.required],
       categoria: ['', Validators.required],
+      ciudad: ['', Validators.required],
       descripcion: ['', Validators.required],
-      imagen: this.fb.array([]),
+      imagenes: this.fb.array([]),
       ubicacion: this.fb.group({
         latitud: ['', Validators.required],
         longitud: ['', Validators.required]
       })
     });
 
-    this.reporteService.obtenerReportePorId(this.reporteId).subscribe({
-      next: (reporte: ReporteDTO) => {
+    this.cargarDatosIniciales();
+  }
+
+  private cargarDatosIniciales() {
+    const sources = {
+      reporte: this.reporteService.obtenerReportePorId(this.reporteId),
+      categorias: this.moderadorService.obtenerCategorias()
+    };
+
+    forkJoin(sources).subscribe({
+      next: (data) => {
+        const reporte = data.reporte;
+        this.categorias = data.categorias.mensaje;
+
+        const categoriaActual = this.categorias.find(c => c.nombre === reporte.categoria);
+
         this.reporteForm.patchValue({
           titulo: reporte.titulo,
-          categoria: reporte.categoria,
+          categoria: categoriaActual ? categoriaActual.id : '',
+          ciudad: reporte.ciudad,
           descripcion: reporte.descripcion,
           ubicacion: {
             latitud: reporte.ubicacion.latitud,
@@ -56,72 +85,97 @@ export class EditarReporteComponent implements OnInit, OnDestroy {
           }
         });
 
-        if (reporte.imagenes && Array.isArray(reporte.imagenes)) {
-          const imagenFormArray = this.reporteForm.get('imagen') as FormArray;
-          reporte.imagenes.forEach((imgUrl: string) => {
-            imagenFormArray.push(this.fb.control(imgUrl));
-          });
-        }
+        const imagenFormArray = this.reporteForm.get('imagenes') as FormArray;
+        imagenFormArray.clear();
+        reporte.imagenes.forEach(imgUrl => {
+          const imageControl: ImageControl = { url: imgUrl, file: null, isNew: false };
+          imagenFormArray.push(this.fb.control(imageControl));
+        });
 
-        setTimeout(() => {
-          this.mapaService.posicionActual = [
-            reporte.ubicacion.longitud,
-            reporte.ubicacion.latitud
-          ];
-          this.mapaService.crearMapa();
-
-          this.marcadorSubscription = this.mapaService.agregarMarcador().subscribe((coords: LngLat) => {
-            this.reporteForm.get('ubicacion.latitud')?.setValue(coords.lat);
-            this.reporteForm.get('ubicacion.longitud')?.setValue(coords.lng);
-          });
-        }, 0);
+        this.mapaService.crearMapa();
+        this.mapaService.pintarMarcador(reporte.ubicacion.latitud, reporte.ubicacion.longitud);
       },
-      error: (err) => {
-        console.error('Error al cargar el reporte:', err);
-      }
+      error: (err) => console.error('Error al cargar datos iniciales:', err)
     });
   }
 
   get imagenesFormArray(): FormArray {
-    return this.reporteForm.get('imagen') as FormArray;
+    return this.reporteForm.get('imagenes') as FormArray;
   }
 
   onImagenSeleccionada(event: any): void {
-    const files: FileList = event.target.files;
-
-    for (let i = 0; i < files.length; i++) {
+    const files: File[] = Array.from(event.target.files);
+    files.forEach(file => {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imagenesFormArray.push(this.fb.control(e.target.result));
+        const imageControl: ImageControl = { url: e.target.result, file: file, isNew: true };
+        this.imagenesFormArray.push(this.fb.control(imageControl));
       };
-      reader.readAsDataURL(files[i]); // base64 string
-    }
+      reader.readAsDataURL(file);
+    });
   }
 
   eliminarImagen(index: number): void {
+    const imageControl = this.imagenesFormArray.at(index).value as ImageControl;
+    if (!imageControl.isNew) {
+      this.imagenesEliminadas.push(imageControl.url);
+    }
     this.imagenesFormArray.removeAt(index);
   }
 
   onSubmit(): void {
     if (this.reporteForm.invalid) return;
 
-    const datos: EditarReporteDTO = this.reporteForm.value;
-    console.log('Datos enviados al backend:', datos);
+    Swal.fire({
+      title: 'Guardando cambios...',
+      text: 'Por favor espera.',
+      allowOutsideClick: false,
+      didOpen: () => { Swal.showLoading(); }
+    });
 
-    this.reporteService.editarReporte(this.reporteId, datos).subscribe({
-      next: () => {
-        alert('Reporte editado correctamente');
-        this.router.navigate(['/home-usuario/reportesUsuario']);
+    const deletion$ = this.imagenesEliminadas.map(url => this.imagenService.eliminar(url));
+    
+    const newImageFiles = this.imagenesFormArray.controls
+      .map(control => control.value as ImageControl)
+      .filter(img => img.isNew)
+      .map(img => img.file!);
+
+    const upload$ = newImageFiles.map(file => this.imagenService.subir(file));
+
+    forkJoin([...deletion$, ...upload$]).subscribe({
+      next: (results) => {
+        const uploadResults = results.slice(deletion$.length) as string[];
+        const existingImageUrls = this.imagenesFormArray.controls
+          .map(control => control.value as ImageControl)
+          .filter(img => !img.isNew)
+          .map(img => img.url);
+
+        const imagenesFinales = [...existingImageUrls, ...uploadResults];
+
+        const datos: EditarReporteDTO = {
+          titulo: this.reporteForm.value.titulo,
+          categoria: this.reporteForm.value.categoria,
+          ciudad: this.reporteForm.value.ciudad,
+          descripcion: this.reporteForm.value.descripcion,
+          ubicacion: this.reporteForm.value.ubicacion,
+          imagenes: imagenesFinales
+        };
+
+        this.reporteService.editarReporte(this.reporteId, datos).subscribe({
+          next: () => {
+            Swal.fire('¡Éxito!', 'Reporte actualizado correctamente', 'success');
+            this.router.navigate(['/home-usuario/reportesUsuario']);
+          },
+          error: (err) => {
+            Swal.fire('Error', 'No se pudo actualizar el reporte.', 'error');
+            console.error(err);
+          }
+        });
       },
       error: (err) => {
-        console.error('Error al editar el reporte:', err);
+        Swal.fire('Error', 'No se pudieron subir o eliminar las imágenes.', 'error');
+        console.error(err);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    if (this.marcadorSubscription) {
-      this.marcadorSubscription.unsubscribe();
-    }
   }
 }

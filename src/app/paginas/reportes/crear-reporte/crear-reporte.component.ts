@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CrearReporteDTO } from '../../../dto/crear-reporte-dto'; 
-import { MapaService } from '../../../servicios/mapa.service'; 
+import { CrearReporteDTO } from '../../../dto/crear-reporte-dto';
+import { MapaService } from '../../../servicios/mapa.service';
 import { ReporteService } from '../../../servicios/reporte.service';
 import { ModeradorService } from '../../../servicios/moderador.service';
 import { ObtenerCategoriaDTO } from '../../../dto/obtener-categoria-dto';
 import Swal from 'sweetalert2';
+import { ImagenService } from '../../../servicios/imagen.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-crear-reporte',
@@ -27,7 +29,8 @@ export class CrearReporteComponent implements OnInit {
     private router: Router,
     private mapaService: MapaService,
     private reporteService: ReporteService,
-    private moderadorService: ModeradorService
+    private moderadorService: ModeradorService,
+    private imagenService: ImagenService
   ) {}
 
   ngOnInit(): void {
@@ -60,13 +63,51 @@ export class CrearReporteComponent implements OnInit {
       return;
     }
 
+    if (this.selectedFiles.length > 0) {
+      this.subirImagenesYCrearReporte();
+    } else {
+      this.crearReporte([]);
+    }
+  }
+
+  private subirImagenesYCrearReporte() {
+    Swal.fire({
+      title: 'Subiendo imágenes...',
+      text: 'Por favor espera.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    const uploadObservables = this.selectedFiles.map(file => this.imagenService.subir(file));
+
+    forkJoin(uploadObservables).subscribe({
+      next: (responses) => {
+        const imageUrls = responses;
+        this.crearReporte(imageUrls);
+      },
+      error: (err) => {
+        Swal.close();
+        console.error(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al subir imágenes',
+          text: 'Hubo un error al subir una o más imágenes. Por favor, inténtalo de nuevo.',
+          confirmButtonText: 'Cerrar'
+        });
+      }
+    });
+  }
+
+  private crearReporte(imageUrls: string[]) {
     const dto: CrearReporteDTO = {
       titulo: this.reporteForm.value.titulo,
       descripcion: this.reporteForm.value.descripcion,
       ciudad: this.reporteForm.value.ciudad,
       categoria: this.reporteForm.value.categoria,
-      ubicacion: this.ubicacionSeleccionada,
-      imagenes: this.selectedFiles.map(file => URL.createObjectURL(file)) // Aquí puedes ajustar si necesitas subir imágenes al backend
+      ubicacion: this.ubicacionSeleccionada!,
+      imagenes: imageUrls
     };
 
     this.reporteService.crearReporte(dto).subscribe({
@@ -77,10 +118,11 @@ export class CrearReporteComponent implements OnInit {
           text: 'Tu reporte ha sido creado exitosamente.',
           confirmButtonText: 'OK'
         }).then(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/home-usuario']);
         });
       },
       error: (err) => {
+        Swal.close();
         console.error(err);
         const mensaje = (err.error && typeof err.error.mensaje === 'string') ? err.error.mensaje : 'Hubo un error al crear el reporte.';
         Swal.fire({
@@ -94,7 +136,7 @@ export class CrearReporteComponent implements OnInit {
   }
 
   goToInicio() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home-usuario']);
   }
 
   onFileSelected(event: Event): void {
@@ -108,13 +150,10 @@ export class CrearReporteComponent implements OnInit {
     this.moderadorService.obtenerCategorias().subscribe({
       next: (data) => {
         this.categoria = data.mensaje;
-        console.log(this.categoria);
       },
       error: (error) => {
         console.log(error.error.contenido);
       }
     });
   }
-
-  
 }

@@ -62,4 +62,13 @@ export class MapaService {
     });
   }
 
+  public setMarcador(latitud: number, longitud: number) {
+    this.marcadores.forEach(marcador => marcador.remove());
+    const marcador = new mapboxgl.Marker({color: 'red'})
+      .setLngLat([longitud, latitud])
+      .addTo(this.mapa);
+    this.marcadores.push(marcador);
+    this.mapa.setCenter([longitud, latitud]); // Centrar el mapa en el nuevo marcador
+  }
+
 }

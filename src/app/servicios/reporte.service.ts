@@ -62,4 +62,9 @@ export class ReporteService {
         map((respuesta: MensajeDTO) => respuesta.mensaje as ReporteDTO)
       );
   }
+
+  public eliminarReporte(id: string): Observable<MensajeDTO> {
+    const headers = this.getAuthHeaders();
+    return this.http.delete<MensajeDTO>(`${this.reportesURL}/${id}`, { headers });
+  }
 }

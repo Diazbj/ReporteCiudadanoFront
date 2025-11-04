@@ -43,9 +43,12 @@
 
                 <div class="card-footer bg-light text-end">
                     <a [routerLink]="['/home-usuario/editar-reporte', reporte.id]"
-                        class="btn btn-outline-primary btn-sm">
+                        class="btn btn-outline-primary btn-sm me-2">
                         <i class="fas fa-edit"></i> Editar
                     </a>
+                    <button class="btn btn-outline-danger btn-sm" (click)="eliminarReporte(reporte.id)">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
                 </div>
             </div>
         </div>

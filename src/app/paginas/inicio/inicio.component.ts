@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TokenService } from '../../servicios/token.service';
 
 @Component({
   selector: 'app-inicio',
@@ -9,17 +10,21 @@ import { Router } from '@angular/router';
   styleUrl: './inicio.component.css'
 })
 
-export class InicioComponent {
+export class InicioComponent implements OnInit {
 
-  constructor(public router:Router){
+  constructor(public router: Router, private tokenService: TokenService) { }
 
+  ngOnInit(): void {
+    if (this.tokenService.isLogged()) {
+      this.router.navigate(['/home-usuario/home-usuario-inicio-reportes']);
+    }
   }
 
-  public irLogin(){
+  public irLogin() {
     this.router.navigate(["/login"]);
   }
 
-  public irRegistro(){
+  public irRegistro() {
     this.router.navigate(["/registro"])
   }
 

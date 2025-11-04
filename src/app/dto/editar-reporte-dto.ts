@@ -7,5 +7,5 @@ export interface EditarReporteDTO {
     ciudad: string,
     descripcion: string,
     ubicacion: UbicacionDTO,
-    imagen: string[]
+    imagenes: string[]
 }

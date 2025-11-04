@@ -4,7 +4,7 @@ import { MapaComponent } from "../../componentes/mapa/mapa.component";
 import { ReporteDTO } from '../../dto/reporte-dto';
 import { ReporteService } from '../../servicios/reporte.service';
 import { MapaService } from '../../servicios/mapa.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ModeradorService } from '../../servicios/moderador.service';
 import { CategoriaDTO } from '../../dto/categoria-dto';
 
@@ -28,7 +28,7 @@ export class HomeUsuarioInicioReportesComponent implements OnInit{
     this.obtenerCategorias();
   }
   
-  constructor(private reporteService: ReporteService, private categoriaService: ModeradorService, private mapaService: MapaService){ 
+  constructor(private reporteService: ReporteService, private categoriaService: ModeradorService, private mapaService: MapaService, private router: Router){ 
     
   }
 
@@ -79,7 +79,7 @@ export class HomeUsuarioInicioReportesComponent implements OnInit{
 
 
   public visualizarDetalle(reporeDTO: ReporteDTO){
-
+    this.router.navigate(['/home-usuario/reporte', reporeDTO.id]);
   }
 
 

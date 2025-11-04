@@ -7,7 +7,7 @@ import { PerfilComponent } from './paginas/usuarios/perfil/perfil.component';
 import { ActualizarPasswordComponent } from './paginas/usuarios/actualizar-password/actualizar-password.component';
 import { RecuperarPasswordComponent } from './paginas/recuperar-password/recuperar-password.component';
 import { CrearReporteComponent } from './paginas/reportes/crear-reporte/crear-reporte.component';
-import { EditarReporteComponent } from './paginas/usuarios/editar-reporte/editar-reporte.component';
+import { EditarReporteComponent } from './paginas/reportes/editar-reporte/editar-reporte.component';
 import { VerReporteComponent } from './paginas/reportes/ver-reporte/ver-reporte.component';
 import { ListarReportesComponent } from './paginas/reportes/listar-reportes/listar-reportes.component';
 import { CategoriasComponent } from './paginas/categorias/categorias.component';
@@ -31,7 +31,7 @@ export const routes: Routes = [
       { path: 'perfil', component: PerfilComponent },
       { path: 'actualizar-password', component: ActualizarPasswordComponent },
       { path: 'categorias', component: CategoriasComponent },
-      { path: 'editar-reporte/:id', component: EditarReporteComponent },
+      { path: 'editar-reporte/:codigo', component: EditarReporteComponent },
       { path: 'reporte/:id', component: VerReporteComponent },
       { path: 'reportes', component: ListarReportesComponent },
       { path: 'reportesUsuario' ,component: ReportesUsuarioComponent},
