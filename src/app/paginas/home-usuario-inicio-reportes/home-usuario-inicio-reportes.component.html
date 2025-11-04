@@ -31,6 +31,9 @@
                         <button class="btn btn-outline-secondary btn-sm" (click)="visualizarDetalle(reporte)">
                             <i class="bi bi-eye"></i> Visualizar
                         </button>
+                        <button class="btn btn-primary btn-sm ms-2" (click)="marcarReporteImportante(reporte.id)">
+                            <i class="bi bi-star"></i> Importante ({{ reporte.cantidadImportante }})
+                        </button>
                     </div>
                 </div>
             </div>

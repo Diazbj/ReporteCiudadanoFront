@@ -7,6 +7,8 @@ import { MapaService } from '../../servicios/mapa.service';
 import { Router, RouterModule } from '@angular/router';
 import { ModeradorService } from '../../servicios/moderador.service';
 import { CategoriaDTO } from '../../dto/categoria-dto';
+import { MensajeDTO } from '../../dto/mensaje-dto';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home-usuario-inicio-reportes',
@@ -82,5 +84,17 @@ export class HomeUsuarioInicioReportesComponent implements OnInit{
     this.router.navigate(['/home-usuario/reporte', reporeDTO.id]);
   }
 
+  public marcarReporteImportante(reporteId: string) {
+    this.reporteService.marcarImportante(reporteId).subscribe({
+      next: (data: MensajeDTO) => {
+        // Actualizar la lista de reportes para reflejar el nuevo conteo
+        this.obtenerReportesCerca();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error al marcar reporte como importante:', error);
+        // Manejar el error, por ejemplo, mostrando un mensaje al usuario
+      }
+    });
+  }
 
 }

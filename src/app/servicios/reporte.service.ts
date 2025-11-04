@@ -67,4 +67,9 @@ export class ReporteService {
     const headers = this.getAuthHeaders();
     return this.http.delete<MensajeDTO>(`${this.reportesURL}/${id}`, { headers });
   }
+
+  public marcarImportante(id: string): Observable<MensajeDTO> {
+    const headers = this.getAuthHeaders();
+    return this.http.put<MensajeDTO>(`${this.reportesURL}/${id}/importante`, {}, { headers });
+  }
 }
