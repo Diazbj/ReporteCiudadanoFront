@@ -15,7 +15,7 @@ import { CrearComentarioDTO } from '../dto/crear-comentario-dto';
 
 export class ModeradorService {
 
-  private apiUrl = "http://localhost:8080/api/moderador";
+  private apiUrl = "https://reportesciudadanos.onrender.com/api/moderador";
 
   constructor(
     private http: HttpClient,

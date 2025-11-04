@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ReporteService {
-  private reportesURL = "http://localhost:8080/api/reportes";
+  private reportesURL = "https://reportesciudadanos.onrender.com/api/reportes";
 
   constructor(
     private http: HttpClient,

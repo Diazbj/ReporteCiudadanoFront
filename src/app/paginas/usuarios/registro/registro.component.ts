@@ -5,6 +5,7 @@ import { UsuarioService } from '../../../servicios/usuario.service';
 import { CrearUsuarioDTO } from '../../../dto/usuarios/crear-usuario-dto';
 import { MensajeDTO } from '../../../dto/mensaje-dto';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -41,7 +42,14 @@ export class RegistroComponent implements OnInit {
       const nuevoUsuario: CrearUsuarioDTO = this.registroForm.value;
       this.usuarioServicio.crearUsuario(nuevoUsuario).subscribe({
         next: (respuesta: MensajeDTO) => {
-          this.goToActivarCuenta(); // Redirige al home u otra vista
+          Swal.fire({
+            icon: 'success',
+            title: 'Cuenta Creada',
+            text: 'Su cuenta ha sido creada exitosamente.',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            this.router.navigate(['/']);
+          });
         },
         error: (error) => {
           console.error("Error al crear usuario:", error);
@@ -50,10 +58,6 @@ export class RegistroComponent implements OnInit {
     } else {
       console.warn("Formulario inválido");
     }
-  }
-
-  public goToActivarCuenta(){
-    this.router.navigate(["/activar-usuario"])  
   }
 
   public goToInicio() {

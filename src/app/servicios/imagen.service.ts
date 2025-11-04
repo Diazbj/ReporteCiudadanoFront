@@ -9,7 +9,7 @@ import { TokenService } from './token.service';
 })
 export class ImagenService {
 
-  private imgURL = "http://localhost:8080/api/imagenes";
+  private imgURL = "https://reportesciudadanos.onrender.com/api/imagenes";
 
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 

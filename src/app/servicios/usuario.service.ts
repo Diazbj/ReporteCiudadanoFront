@@ -14,8 +14,7 @@ import { EditarUsuarioDTO } from '../dto/editar-usuario-dto';
 
 export class UsuarioService {
 
-  private apiUrl='http://localhost:8080/api/usuarios'
-
+    private apiUrl = "https://reportesciudadanos.onrender.com/api/usuarios";
   constructor(private http:HttpClient,
     private tokenService: TokenService
   ) { 

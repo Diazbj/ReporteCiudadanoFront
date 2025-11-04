@@ -12,7 +12,7 @@ import { PasswordNuevoDTO } from '../dto/password-nuevo-dto';
 
 export class AuthService {
   
-  private authURL = "http://localhost:8080/api";
+  private authURL = "https://reportesciudadanos.onrender.com/api";
   private tokenKey = 'auth_token';
 
   constructor(private http: HttpClient) { 
