@@ -3,13 +3,15 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { TokenService } from './token.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImagenService {
 
-  private imgURL = "https://reportesciudadanos.onrender.com/api/imagenes";
+
+  private imgURL = `${environment.apiUrl}/imagenes`;
 
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 

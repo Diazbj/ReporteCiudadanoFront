@@ -9,12 +9,15 @@ import { AuthService } from './auth.service';
 import { CrearReporteDTO } from '../dto/crear-reporte-dto';
 import { EditarReporteDTO } from '../dto/editar-reporte-dto';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReporteService {
-  private reportesURL = "https://reportesciudadanos.onrender.com/api/reportes";
+
+  private reportesURL = `${environment.apiUrl}/reportes`;
+
 
   constructor(
     private http: HttpClient,

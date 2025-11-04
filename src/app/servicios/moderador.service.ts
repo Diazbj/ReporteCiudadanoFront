@@ -8,6 +8,7 @@ import { MensajeOpcionalCategoria } from '../dto/mensaje-opcional-categoria';
 import { ObtenerCategoriaDTO } from '../dto/obtener-categoria-dto';
 import { ComentarioDTO } from '../dto/comentario-dto';
 import { CrearComentarioDTO } from '../dto/crear-comentario-dto';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,11 @@ import { CrearComentarioDTO } from '../dto/crear-comentario-dto';
 
 export class ModeradorService {
 
+<<<<<<< HEAD
   private apiUrl = "https://reportesciudadanos.onrender.com/api/moderador";
+=======
+  private apiUrl = `${environment.apiUrl}/moderador`;
+>>>>>>> 7a25fab (configuración deploy)
 
   constructor(
     private http: HttpClient,

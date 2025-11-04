@@ -7,6 +7,7 @@ import { UsuarioActivacionDTO } from '../dto/usuarios/usuario-activacion-dto';
 import { CambiarPasswordDTO } from '../dto/cambiar-password-dto';
 import { TokenService } from './token.service';
 import { EditarUsuarioDTO } from '../dto/editar-usuario-dto';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,9 @@ import { EditarUsuarioDTO } from '../dto/editar-usuario-dto';
 
 export class UsuarioService {
 
-    private apiUrl = "https://reportesciudadanos.onrender.com/api/usuarios";
+
+  private apiUrl=`${environment.apiUrl}/usuarios`
+
   constructor(private http:HttpClient,
     private tokenService: TokenService
   ) { 

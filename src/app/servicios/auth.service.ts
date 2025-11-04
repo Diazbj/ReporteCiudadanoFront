@@ -5,6 +5,7 @@ import { LoginDTO } from '../dto/login-dto';
 import { MensajeDTO} from '../dto/mensaje-dto';
 import { UsuarioNuevoCodigoDTO } from '../dto/usuarios/usuario-nuevo-codigo-dto';
 import { PasswordNuevoDTO } from '../dto/password-nuevo-dto';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ import { PasswordNuevoDTO } from '../dto/password-nuevo-dto';
 
 export class AuthService {
   
-  private authURL = "https://reportesciudadanos.onrender.com/api";
+  private authURL = environment.apiUrl;
+  
   private tokenKey = 'auth_token';
 
   constructor(private http: HttpClient) { 
