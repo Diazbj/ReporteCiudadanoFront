@@ -1,7 +1,0 @@
-{
-  {
-    "outputDirectory": "dist/proyecto-alertas-front",
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/index.html" }
-    ]
-  }
