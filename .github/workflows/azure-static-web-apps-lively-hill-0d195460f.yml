@@ -14,34 +14,40 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Build And Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_HILL_0D195460F }}
+          # TOKEN CORRECTO DEL RECURSO ambitious-beach
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_BEACH_076346C0F }}
+
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
 
-          # Ruta del proyecto Angular
+          # Ruta raíz del proyecto
           app_location: "/"
 
           # No tienes API
           api_location: ""
 
-          # Comando de build explícito
+          # Comando de build para Angular
           app_build_command: "npm install && npm run build -- --configuration production"
 
-          # Carpeta que Angular genera (CONFIRMAR NOMBRE)
+          # Carpeta generada por Angular (CONFIRMAR NOMBRE EXACTO)
           output_location: "dist/proyecto-alertas-front"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
+
     steps:
-      - uses: Azure/static-web-apps-deploy@v1
+      - name: Close Pull Request
+        uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_LIVELY_HILL_0D195460F }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AMBITIOUS_BEACH_076346C0F }}
           action: "close"
