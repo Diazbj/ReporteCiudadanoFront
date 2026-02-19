@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/e6ee196d-9a4f-4fe9-a288-953cbfe3ccc2/resourceGroups/Resorse_general/providers/Microsoft.Web/sites/reporte-ciudadanos3",
+    "appService.deploySubpath": "."
 }
