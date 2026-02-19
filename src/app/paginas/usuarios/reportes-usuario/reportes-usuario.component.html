@@ -3,10 +3,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <div class="container mt-4">
-    <h2 class="mb-4 text-center"><i class="fas fa-clipboard-list"></i> Mis Reportes</h2>
+    <h2 class="mb-4 text-center"><i class="fa-clipboard-list"></i> Mis Reportes</h2>
 
     <div *ngIf="reportes.length === 0" class="alert alert-info text-center">
-        <i class="fas fa-info-circle"></i> No has creado ningún reporte todavía.
+        <i class="fa-info-circle"></i> No has creado ningún reporte todavía.
     </div>
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -16,24 +16,24 @@
                     <h5 class="card-title text-primary">
                         <i class="fas fa-file-alt"></i> {{ reporte.titulo }}
                     </h5>
-                    <p class="card-text"><strong><i class="fas fa-tag"></i> Categoría:</strong> {{ reporte.categoria }}
+                    <p class="card-text"><strong><i class="fa-tag"></i> Categoría:</strong> {{ reporte.categoria }}
                     </p>
-                    <p class="card-text"><strong><i class="fas fa-align-left"></i> Descripción:</strong> {{
+                    <p class="card-text"><strong><i class="fa-align-left"></i> Descripción:</strong> {{
                         reporte.descripcion }}</p>
-                    <p class="card-text"><strong><i class="fas fa-flag"></i> Estado actual:</strong> {{
+                    <p class="card-text"><strong><i class="fa-flag"></i> Estado actual:</strong> {{
                         reporte.estadoActual }}</p>
-                    <p class="card-text"><strong><i class="fas fa-calendar-alt"></i> Fecha de creación:</strong> {{
+                    <p class="card-text"><strong><i class="fa-calendar-alt"></i> Fecha de creación:</strong> {{
                         reporte.fechaCreacion }}</p>
-                    <p class="card-text"><strong><i class="fas fa-exclamation-circle"></i> Importancia:</strong> {{
+                    <p class="card-text"><strong><i class="fa-exclamation-circle"></i> Importancia:</strong> {{
                         reporte.cantidadImportante }}</p>
 
                     <div *ngIf="reporte.ubicacion as ubicacion">
-                        <p class="card-text"><strong><i class="fas fa-map-marker-alt"></i> Ubicación:</strong> ({{
+                        <p class="card-text"><strong><i class="fa-map-marker-alt"></i> Ubicación:</strong> ({{
                             ubicacion.latitud }}, {{ ubicacion.longitud }})</p>
                     </div>
 
                     <div *ngIf="reporte.imagenes?.length as cantidadImagenes" [hidden]="cantidadImagenes === 0">
-                        <h6><i class="fas fa-images"></i> Imágenes:</h6>
+                        <h6><i class="fa-images"></i> Imágenes:</h6>
                         <div class="d-flex flex-wrap gap-2">
                             <img *ngFor="let img of reporte.imagenes" [src]="img" alt="Imagen del reporte"
                                 class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
@@ -44,10 +44,10 @@
                 <div class="card-footer bg-light text-end">
                     <a [routerLink]="['/home-usuario/editar-reporte', reporte.id]"
                         class="btn btn-outline-primary btn-sm me-2">
-                        <i class="fas fa-edit"></i> Editar
+                        <i class="fa-edit"></i> Editar
                     </a>
                     <button class="btn btn-outline-danger btn-sm" (click)="eliminarReporte(reporte.id)">
-                        <i class="fas fa-trash"></i> Eliminar
+                        <i class="fa-trash"></i> Eliminar
                     </button>
                 </div>
             </div>
