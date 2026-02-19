@@ -1,91 +1,42 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
   <div class="container-fluid">
-
-    <a class="navbar-brand fw-bold" routerLink="/">
-      <i class="fa-solid fa-city me-2"></i> Reporte Ciudadano
-    </a>
-
-    <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
+    <a class="navbar-brand fw-bold" routerLink="/">Reporte Ciudadano</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarNav">
-
       <!-- Logged-out state -->
       <ul class="navbar-nav ms-auto" *ngIf="!isLoggedIn()">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">
-            <i class="fa-solid fa-right-to-bracket me-1"></i> Iniciar Sesión
-          </a>
+          <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-outline-light ms-2" routerLink="/registro">
-            <i class="fa-solid fa-user-plus me-1"></i> Registrarse
-          </a>
+          <a class="btn btn-outline-light" routerLink="/registro">Registrarse</a>
         </li>
       </ul>
 
       <!-- Logged-in state -->
       <ul class="navbar-nav ms-auto" *ngIf="isLoggedIn()">
-
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home-usuario/crear-reporte">
-            <i class="fa-solid fa-plus me-1"></i> Crear Reporte
-          </a>
+          <a class="nav-link" routerLink="/home-usuario/crear-reporte">Crear Reporte</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home-usuario/reportesUsuario">
-            <i class="fa-solid fa-folder-open me-1"></i> Mis Reportes
-          </a>
+          <a class="nav-link" routerLink="/home-usuario/reportesUsuario">Mis Reportes</a>
         </li>
-
         <li class="nav-item" *ngIf="isAdmin()">
-          <a class="nav-link" routerLink="/home-usuario/categorias">
-            <i class="fa-solid fa-tags me-1"></i> Categorías
-          </a>
+          <a class="nav-link" routerLink="/home-usuario/categorias">Categorias</a>
         </li>
-
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle"
-             href="#"
-             id="navbarDropdown"
-             role="button"
-             data-bs-toggle="dropdown"
-             aria-expanded="false">
-            <i class="fa-solid fa-user me-1"></i> Perfil
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user me-1"></i> Perfil
           </a>
-
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-            <li>
-              <a class="dropdown-item" routerLink="/home-usuario/perfil">
-                <i class="fa-solid fa-id-card me-2"></i> Ver Perfil
-              </a>
-            </li>
-
-            <li>
-              <a class="dropdown-item" routerLink="/home-usuario/actualizar-password">
-                <i class="fa-solid fa-key me-2"></i> Actualizar Contraseña
-              </a>
-            </li>
-
+            <li><a class="dropdown-item" routerLink="/home-usuario/perfil">Ver Perfil</a></li>
+            <li><a class="dropdown-item" routerLink="/home-usuario/actualizar-password">Actualizar Contraseña</a></li>
             <li><hr class="dropdown-divider"></li>
-
-            <li>
-              <button class="dropdown-item" (click)="logout()">
-                <i class="fa-solid fa-right-from-bracket me-2"></i> Cerrar Sesión
-              </button>
-            </li>
-
+            <li><button class="dropdown-item" (click)="logout()">Cerrar Sesión</button></li>
           </ul>
         </li>
-
       </ul>
     </div>
   </div>
