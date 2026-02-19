@@ -1,41 +1,75 @@
 <div class="card shadow-sm">
   <div class="card-header">
-    <h5 class="card-title mb-0">Comentarios</h5>
+    <h5 class="card-title mb-0">
+      <i class="fa-solid fa-comments"></i> Comentarios
+    </h5>
   </div>
+
   <div class="card-body">
-    <!-- Form to add a new comment -->
+
+    <!-- Formulario para agregar comentario -->
     <div *ngIf="isLoggedIn()" class="mb-4">
       <form [formGroup]="comentarioForm" (ngSubmit)="crearComentario()">
         <div class="mb-3">
-          <label for="comentario" class="form-label">Añadir un comentario</label>
-          <textarea class="form-control" id="comentario" rows="3" formControlName="mensaje" placeholder="Escribe tu comentario aquí..."></textarea>
+          <label for="comentario" class="form-label">
+            <i class="fa-solid fa-pen"></i> Añadir un comentario
+          </label>
+          <textarea
+            class="form-control"
+            id="comentario"
+            rows="3"
+            formControlName="mensaje"
+            placeholder="Escribe tu comentario aquí...">
+          </textarea>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="comentarioForm.invalid">Enviar Comentario</button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="comentarioForm.invalid">
+          <i class="fa-solid fa-paper-plane"></i> Enviar Comentario
+        </button>
       </form>
     </div>
 
-    <!-- Message for logged-out users -->
+    <!-- Mensaje para usuarios no logueados -->
     <div *ngIf="!isLoggedIn()" class="alert alert-info">
+      <i class="fa-solid fa-circle-info"></i>
       Debes <a routerLink="/login">iniciar sesión</a> para poder comentar.
     </div>
 
-    <!-- List of comments -->
-    <h6 class="card-subtitle mb-2 text-muted">{{ comentarios.length }} Comentarios</h6>
+    <!-- Lista de comentarios -->
+    <h6 class="card-subtitle mb-2 text-muted">
+      <i class="fa-solid fa-comment-dots"></i>
+      {{ comentarios.length }} Comentarios
+    </h6>
+
     <div *ngIf="comentarios.length > 0; else noComentarios">
       <div *ngFor="let comentario of comentarios" class="d-flex mb-3">
         <div class="flex-shrink-0">
-          <i class="fas fa-user-circle fa-2x text-muted"></i>
+          <i class="fa-solid fa-user-circle fa-2x text-muted"></i>
         </div>
         <div class="ms-3">
-          <div class="fw-bold">{{ comentario.nombreUsuario }}</div>
+          <div class="fw-bold">
+            <i class="fa-solid fa-user"></i>
+            {{ comentario.nombreUsuario }}
+          </div>
+
           {{ comentario.mensaje }}
-          <div class="text-muted fs-sm">{{ comentario.fechaCreacion | date: 'short' }}</div>
+
+          <div class="text-muted fs-sm">
+            <i class="fa-solid fa-clock"></i>
+            {{ comentario.fechaCreacion | date: 'short' }}
+          </div>
         </div>
       </div>
     </div>
 
     <ng-template #noComentarios>
-      <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
+      <p>
+        <i class="fa-solid fa-comment-slash"></i>
+        No hay comentarios aún. ¡Sé el primero en comentar!
+      </p>
     </ng-template>
 
   </div>
