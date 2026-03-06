@@ -48,7 +48,7 @@ export class RegistroComponent implements OnInit {
             text: 'Su cuenta ha sido creada exitosamente.',
             confirmButtonText: 'OK'
           }).then(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/activar-usuario']);
           });
         },
         error: (error) => {

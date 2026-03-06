@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://reportesciudadanos.onrender.com/api'
+  apiUrl: 'https://reporte-ciudadano.azurewebsites.net/api'
 };
