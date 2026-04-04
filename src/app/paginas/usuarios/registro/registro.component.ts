@@ -10,20 +10,29 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule,CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
-
 export class RegistroComponent implements OnInit {
+
   registroForm!: FormGroup;
-  ciudades: string[] = ['ARMENIA', 'BOGOTA', 'MEDELLIN', 'CALI', 'MANIZALES', 'PEREIRA'];
+
+  ciudades: string[] = [
+    'ARMENIA',
+    'BOGOTA',
+    'MEDELLIN',
+    'CALI',
+    'MANIZALES',
+    'PEREIRA'
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
     private usuarioServicio: UsuarioService
   ) {
+
     this.registroForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       telefono: ['', [Validators.required, Validators.minLength(10)]],
@@ -32,16 +41,21 @@ export class RegistroComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(7)]]
     });
+
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   crearUsuario() {
+
     if (this.registroForm.valid) {
+
       const nuevoUsuario: CrearUsuarioDTO = this.registroForm.value;
+
       this.usuarioServicio.crearUsuario(nuevoUsuario).subscribe({
+
         next: (respuesta: MensajeDTO) => {
+
           Swal.fire({
             icon: 'success',
             title: 'Cuenta Creada',
@@ -50,14 +64,40 @@ export class RegistroComponent implements OnInit {
           }).then(() => {
             this.router.navigate(['/activar-usuario']);
           });
+
         },
+
         error: (error) => {
+
           console.error("Error al crear usuario:", error);
+
+          if (error.status === 409) {
+
+            Swal.fire({
+              icon: 'warning',
+              title: 'Usuario ya registrado',
+              text: 'Ya existe una cuenta con este correo electrónico.',
+              confirmButtonText: 'OK'
+            });
+
+          } else {
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudo registrar el usuario.',
+              confirmButtonText: 'OK'
+            });
+
+          }
+
         }
       });
+
     } else {
       console.warn("Formulario inválido");
     }
+
   }
 
   public goToInicio() {
