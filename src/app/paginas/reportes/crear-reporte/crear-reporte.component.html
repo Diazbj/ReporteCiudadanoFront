@@ -17,14 +17,20 @@
 
     <div class="form-group">
       <label for="ciudad">Ciudad:</label>
-      <input type="text" id="ciudad" formControlName="ciudad" class="form-control" />
+      <select id="ciudad" formControlName="ciudad" class="form-select">
+        <option value="" disabled selected>Selecciona una ciudad</option>
+        <option *ngFor="let ciudad of ciudades" [value]="ciudad">
+          {{ ciudad }}
+        </option>
+      </select>
     </div>
 
     <div class="form-group">
       <label for="categoria">Categoría:</label>
       <select id="categoria" formControlName="categoria" class="form-select">
-        <option *ngFor="let categoria of categoria" [value]="categoria.id">
-          {{ categoria.nombre }}
+        <option value="" disabled selected>Selecciona una categoría</option>
+        <option *ngFor="let cat of categorias" [value]="cat.id">
+          {{ cat.nombre }}
         </option>
       </select>
     </div>

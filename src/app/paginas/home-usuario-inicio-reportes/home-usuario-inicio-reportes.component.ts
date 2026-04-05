@@ -21,7 +21,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class HomeUsuarioInicioReportesComponent implements OnInit{ 
   private latitud:number = 4.514;
   private longitud:number = -75.674;
-  public reportesDTO:ReporteDTO[] = [];
+  public reportesDTO: ReporteDTO[] = [];
+  public filtradosDTO: ReporteDTO[] = [];
   private categoria: CategoriaDTO[] = [];
 
 
@@ -38,6 +39,7 @@ export class HomeUsuarioInicioReportesComponent implements OnInit{
     this.reporteService.obtenerReportesCerca(this.latitud, this.longitud).subscribe({
       next: (data) => {
         this.reportesDTO = data.mensaje;
+        this.filtradosDTO = [...this.reportesDTO]; // Inicializar filtrados
         this.mapaService.crearMapa();
         this.mapaService.pintarMarcadores(this.reportesDTO);
       },
@@ -92,9 +94,24 @@ export class HomeUsuarioInicioReportesComponent implements OnInit{
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error al marcar reporte como importante:', error);
-        // Manejar el error, por ejemplo, mostrando un mensaje al usuario
       }
     });
+  }
+
+  public filtrarReportes(event: any) {
+    const texto = event.target.value.toLowerCase();
+    
+    if (!texto) {
+      this.filtradosDTO = [...this.reportesDTO];
+    } else {
+      this.filtradosDTO = this.reportesDTO.filter(r => 
+        r.titulo.toLowerCase().includes(texto) || 
+        r.descripcion.toLowerCase().includes(texto)
+      );
+    }
+    
+    // Opcional: Actualizar marcadores en el mapa para mostrar solo los filtrados
+    this.mapaService.pintarMarcadores(this.filtradosDTO);
   }
 
 }

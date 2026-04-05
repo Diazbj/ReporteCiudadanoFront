@@ -1,43 +1,64 @@
-<div class="cont-home-inic-repo">
-    <div data-bs-spy="scroll">
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div *ngFor="let reporte of reportesDTO; let i = index" class="reporte-item accordion-item" >
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapse-' + i" aria-expanded="false" [attr.aria-controls]="'flush-collapse-' + i">
-                        {{reporte.titulo}}
-                    </button>
-                </h2>
-                <div [attr.id]="'flush-collapse-' + i" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <!-- Categoría con estilo de etiqueta -->
-                        <span class="badge mb-2" [ngClass]="obtenerColorPorCategoria(reporte.categoria)">
-                            {{ reporte.categoria }}
-                        </span>
-                        <!-- Fecha de creación formateada -->
-                        <p class="mb-1">
-                            <strong>Fecha de creación:</strong>
-                            <!--{{ reporte.fechaCreacion | date: 'fullDate' }}-->
-                             {{ reporte.fechaCreacion }}
-                        </p>
-                        <!-- Descripción -->
-                        <p class="mb-1">
-                            <strong>Descripción:</strong> {{ reporte.descripcion }}
-                        </p>
-                        <!-- Cantidad importante -->
-                        <p class="mb-2">
-                            <strong>Cantidad importante:</strong> {{ reporte.cantidadImportante }}
-                        </p>
-                        <!-- Botón para visualizar detalles -->
-                        <button class="btn btn-outline-secondary btn-sm" (click)="visualizarDetalle(reporte)">
-                            <i class="bi bi-eye"></i> Visualizar
-                        </button>
-                        <button class="btn btn-primary btn-sm ms-2" (click)="marcarReporteImportante(reporte.id)">
-                            <i class="bi bi-star"></i> Importante ({{ reporte.cantidadImportante }})
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="dashboard-layout">
+  <!-- Left Side: List of reports -->
+  <aside class="reports-sidebar">
+    <div class="sidebar-header d-flex justify-content-between align-items-center mb-4">
+      <h4 class="fw-bold mb-0">Reportes Recientes</h4>
+      <span class="badge bg-primary-soft text-primary rounded-pill border-0">{{ reportesDTO.length }} activos</span>
     </div>
+
+    <!-- Buscador -->
+    <div class="search-box mb-4">
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0">
+          <i class="bi bi-search text-muted"></i>
+        </span>
+        <input type="text" class="form-control border-start-0 shadow-none" placeholder="Buscar reportes..." (input)="filtrarReportes($event)">
+      </div>
+    </div>
+
+    <div class="reports-scroll-area">
+      <!-- Tarjeta clickeable -->
+      <div *ngFor="let reporte of filtradosDTO; let i = index" 
+           class="report-card animate__animated animate__fadeInUp" 
+           (click)="visualizarDetalle(reporte)"
+           [style.animation-delay]="(i * 0.1) + 's'">
+        
+        <div class="card-header-modern mb-3">
+          <span class="category-tag bg-primary-soft text-primary">
+            {{ reporte.categoria }}
+          </span>
+          <span class="report-date">{{ reporte.fechaCreacion }}</span>
+        </div>
+
+        <h5 class="report-title">{{ reporte.titulo }}</h5>
+        <p class="report-description mb-3">{{ reporte.descripcion | slice:0:100 }}...</p>
+
+        <div class="report-footer d-flex justify-content-between align-items-center pt-3 mt-3 border-top border-light">
+          <!-- Contador de Importante con botón interactivo -->
+          <button class="btn btn-important-toggle d-flex align-items-center gap-2" 
+                  (click)="$event.stopPropagation(); marcarReporteImportante(reporte.id)"
+                  [class.active]="$any(reporte).marcado">
+            <i class="bi" [ngClass]="$any(reporte).marcado ? 'bi-star-fill text-warning' : 'bi-star'"></i>
+            <span class="fw-bold">{{ reporte.cantidadImportante }}</span>
+            <small class="text-muted">Importante</small>
+          </button>
+          
+          <div class="text-primary fs-7 fw-bold">
+            Ver detalle <i class="bi bi-chevron-right ms-1"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estado vacío -->
+      <div *ngIf="filtradosDTO.length === 0" class="empty-state text-center py-5">
+        <i class="bi bi-clipboard-x display-4 text-muted"></i>
+        <p class="mt-2 text-muted">No se encontraron reportes en esta zona.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Right Side: The Map -->
+  <main class="map-view-container">
     <app-mapa></app-mapa>
+  </main>
 </div>

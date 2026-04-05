@@ -11,5 +11,6 @@ export interface ReporteDTO {
     estadoActual: string,
     imagenes: string[],
     fechaCreacion: string,
-    cantidadImportante: number
+    cantidadImportante: number,
+    marcado?: boolean
 }

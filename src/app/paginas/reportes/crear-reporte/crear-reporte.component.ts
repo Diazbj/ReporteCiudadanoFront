@@ -22,7 +22,15 @@ export class CrearReporteComponent implements OnInit {
   reporteForm!: FormGroup;
   selectedFiles: File[] = [];
   ubicacionSeleccionada: { latitud: number, longitud: number } | null = null;
-  categoria: ObtenerCategoriaDTO[] = [];
+  categorias: ObtenerCategoriaDTO[] = [];
+  ciudades: string[] = [
+    'ARMENIA',
+    'BOGOTA',
+    'MEDELLIN',
+    'CALI',
+    'MANIZALES',
+    'PEREIRA'
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -146,13 +154,16 @@ export class CrearReporteComponent implements OnInit {
     }
   }
 
-  public obtenerCategorias(){
+  public obtenerCategorias() {
     this.moderadorService.obtenerCategorias().subscribe({
       next: (data) => {
-        this.categoria = data.mensaje;
+        console.log("Datos de categorías recibidos:", data);
+        if (data && data.mensaje) {
+          this.categorias = data.mensaje;
+        }
       },
       error: (error) => {
-        console.log(error.error.contenido);
+        console.error("Error al obtener categorías:", error);
       }
     });
   }
