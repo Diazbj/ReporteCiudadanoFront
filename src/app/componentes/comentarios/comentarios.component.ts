@@ -68,6 +68,46 @@ export class ComentariosComponent implements OnChanges {
     });
   }
 
+  public esMiComentario(comentario: ComentarioDTO): boolean {
+    const miId = this.tokenService.getIdUsuario();
+    // Validar por si el backend mandó el id de MongoDB mapeado, o su interior.
+    if (comentario.clienteId) {
+      return comentario.clienteId === miId;
+    }
+    
+    return false;
+  }
+
+  public eliminarComentario(comentario: ComentarioDTO) {
+    if (!comentario.id) {
+      Swal.fire('Error', 'No se pudo identificar el comentario para eliminarlo.', 'error');
+      return;
+    }
+    Swal.fire({
+      title: '¿Eliminar comentario?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.moderadorService.eliminarComentario(comentario.id).subscribe({
+          next: () => {
+            Swal.fire('¡Eliminado!', 'El comentario ha sido borrado.', 'success');
+            this.obtenerComentarios();
+          },
+          error: (err) => {
+            console.error(err);
+            Swal.fire('Error', 'No se pudo eliminar el comentario', 'error');
+          }
+        });
+      }
+    });
+  }
+
   public isLoggedIn(): boolean {
     return this.tokenService.isLogged();
   }

@@ -8,6 +8,7 @@ import { MensajeDTO } from '../dto/mensaje-dto';
 import { AuthService } from './auth.service';
 import { CrearReporteDTO } from '../dto/crear-reporte-dto';
 import { EditarReporteDTO } from '../dto/editar-reporte-dto';
+import { EstadoReporteDTO } from '../dto/estado-reporte-dto';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -46,6 +47,20 @@ export class ReporteService {
   public obtenerReportesUsuario(): Observable<MensajeDTO> {
     const headers = this.getAuthHeaders();
     return this.http.get<MensajeDTO>(`${this.reportesURL}/usuario`, { headers });
+  }
+
+  public obtenerTodosLosReportes(): Observable<MensajeOpcionalDTO<ReporteDTO[]>> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<MensajeOpcionalDTO<ReporteDTO[]>>(`${this.reportesURL}`, { headers });
+  }
+
+  public cambiarEstado(id: string, nuevoEstado: string, motivo: string): Observable<MensajeDTO> {
+    const headers = this.getAuthHeaders();
+    const estadoDTO: EstadoReporteDTO = {
+      nuevoEstado: nuevoEstado,
+      motivo: motivo
+    };
+    return this.http.post<MensajeDTO>(`${this.reportesURL}/${id}/estado`, estadoDTO, { headers });
   }
 
   public crearReporte(reporte: CrearReporteDTO): Observable<MensajeDTO> {

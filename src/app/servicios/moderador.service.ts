@@ -63,15 +63,23 @@ export class ModeradorService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    return this.http.get<MensajeDTO>(`${this.apiUrl}/comentarios/${idReporte}`, { headers });
+    return this.http.get<MensajeDTO>(`${environment.apiUrl}/comentario/${idReporte}`, { headers });
   }
 
-  public crearComentario(idReporte: string, comentario: CrearComentarioDTO): Observable<MensajeDTO> {
+  public crearComentario(idReporte: string, comentario: CrearComentarioDTO): Observable<any> {
     const token = this.tokenService.getToken();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    return this.http.post<MensajeDTO>(`${this.apiUrl}/comentarios/${idReporte}`, comentario, { headers });
+    return this.http.post(`${environment.apiUrl}/comentario/${idReporte}`, comentario, { headers, responseType: 'text' as 'json' });
+  }
+
+  public eliminarComentario(idComentario: string): Observable<any> {
+    const token = this.tokenService.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.delete(`${environment.apiUrl}/comentario/${idComentario}`, { headers, responseType: 'text' as 'json' });
   }
 
   public obtenerCategoriaColor(categoriaNombre:String):Observable<MensajeDTO>{

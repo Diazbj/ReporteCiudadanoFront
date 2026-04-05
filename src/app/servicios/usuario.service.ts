@@ -40,6 +40,14 @@ export class UsuarioService {
     return this.http.put<MensajeDTO>(`${this.apiUrl}/password`, cambiarPasswordDTO, {headers} );
   }
 
+  obtenerUsuario():Observable<MensajeDTO>{
+    const token = this.tokenService.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.get<MensajeDTO>(`${this.apiUrl}`, {headers} );
+  }
+
   editarUsuario(editarUsuarioDTO: EditarUsuarioDTO):Observable<MensajeDTO>{
     const token = this.tokenService.getToken();
     const headers = new HttpHeaders({

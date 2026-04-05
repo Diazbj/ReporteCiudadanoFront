@@ -70,23 +70,32 @@ export class RegistroComponent implements OnInit {
         error: (error) => {
 
           console.error("Error al crear usuario:", error);
+          const mensajeError = error.error?.respuesta || error.error?.message || 'No se pudo registrar el usuario. Por favor, intente de nuevo.';
 
           if (error.status === 409) {
 
             Swal.fire({
               icon: 'warning',
               title: 'Usuario ya registrado',
-              text: 'Ya existe una cuenta con este correo electrónico.',
-              confirmButtonText: 'OK'
+              text: error.error?.respuesta || 'Ya existe una cuenta con este correo electrónico.',
+              confirmButtonText: 'Aceptar'
+            });
+
+          } else if (error.status === 400) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Datos inválidos',
+              text: mensajeError,
+              confirmButtonText: 'Aceptar'
             });
 
           } else {
 
             Swal.fire({
               icon: 'error',
-              title: 'Error',
-              text: 'No se pudo registrar el usuario.',
-              confirmButtonText: 'OK'
+              title: 'Error en el registro',
+              text: mensajeError,
+              confirmButtonText: 'Aceptar'
             });
 
           }

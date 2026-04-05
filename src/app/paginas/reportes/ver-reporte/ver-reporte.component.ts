@@ -40,9 +40,18 @@ export class VerReporteComponent implements OnInit {
         setTimeout(() => {
           if (this.reporte && this.reporte.ubicacion) {
             this.mapaService.crearMapa();
-            this.mapaService.pintarMarcadores([this.reporte]);
+            this.mapaService.setMarcador(
+              this.reporte.ubicacion.latitud,
+              this.reporte.ubicacion.longitud
+            );
+            // Disparar resize luego de pintar para asegurar que tome el 100% del layout
+            setTimeout(() => {
+              if (this.mapaService.mapa) {
+                this.mapaService.mapa.resize();
+              }
+            }, 100);
           }
-        }, 0);
+        }, 100);
       },
       error: (error) => {
         console.error('Error al obtener el reporte:', error);
