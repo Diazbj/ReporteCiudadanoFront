@@ -38,8 +38,13 @@
           </li>
           
           <li class="nav-item" *ngIf="isAdmin()">
-            <a class="nav-link-modern" routerLink="/home-usuario/categorias">
+            <a class="nav-link-modern" routerLink="/home-usuario/categorias" routerLinkActive="active">
               <i class="bi bi-tags"></i> Categorias
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="isAdmin()">
+            <a class="nav-link-modern" routerLink="/home-usuario/reportes" routerLinkActive="active">
+              <i class="bi bi-file-earmark-bar-graph"></i> Todos los Reportes
             </a>
           </li>
 
