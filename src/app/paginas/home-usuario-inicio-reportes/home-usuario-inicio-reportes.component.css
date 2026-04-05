@@ -1,103 +1,110 @@
-:host {
-  display: block;
-  height: calc(100vh - 72px); /* Descontando el header */
-  background-color: var(--background);
-}
-
 .dashboard-layout {
-  display: grid;
-  grid-template-columns: 420px 1fr;
-  height: 100%;
+  display: flex;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+  background: #f8fafc;
 }
 
 .reports-sidebar {
-  background-color: var(--white);
-  border-right: 1px solid var(--border);
-  padding: 1.5rem;
-  overflow-y: auto;
-  box-shadow: 4px 0 10px rgba(0,0,0,0.02);
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
+  padding: 1.5rem;
+  border-right: 1px solid #e2e8f0;
+  z-index: 10;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
 }
 
 .reports-scroll-area {
   flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 10px;
 }
 
-.report-card {
-  background-color: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  transition: all 0.25s ease;
-  cursor: pointer;
-  position: relative;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-}
-
-.report-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px -5px rgba(67, 97, 238, 0.15);
-}
-
-.category-tag {
-  padding: 0.25rem 0.75rem;
-  border-radius: 99px;
-  font-size: 0.7rem;
-  font-weight: 700;
+/* 🌟 CATEGORIAS CON ALTO CONTRASTE 🌟 */
+.category-tag-modern {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.65rem;
+  font-weight: 900;
   text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: inline-block;
 }
 
-.bg-primary-soft {
-  background: rgba(67, 97, 238, 0.1);
+/* Report Cards */
+.report-card-modern {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.report-title {
+.report-card-modern:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(67, 97, 238, 0.1);
+}
+
+.report-title-modern { font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-bottom: 0.5rem; }
+.report-description-modern { font-size: 0.95rem; color: #64748b; line-height: 1.6; }
+
+.report-date {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.opa-50 { opacity: 0.5; }
+
+/* 🌟 BOTÓN DE IMPORTANCIA - CONTRASTE MÁXIMO 🌟 */
+
+.btn-important-badge {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: all 0.4s ease;
+  color: #64748b;
+  cursor: pointer;
+}
+
+/* ESTADO: YA HE VOTADO (MARCADO) */
+.btn-important-badge.is-marked {
+  background: #4361ee !important; /* Azul Rey Sólido */
+  border-color: #4361ee;
+  color: #ffffff !important; /* Texto Blanco Puro */
+  box-shadow: 0 8px 15px rgba(67, 97, 238, 0.4);
+  transform: scale(1.05);
+}
+
+.btn-important-badge.is-marked i {
+  color: #ffffff !important; /* Corazón Blanco Puro */
   font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 0.5rem;
 }
 
-.report-description {
-  font-size: 0.9rem;
-  color: var(--text-muted);
+.btn-important-badge.is-marked .count-number,
+.btn-important-badge.is-marked .text-label {
+  color: #ffffff !important;
+  font-weight: 800;
 }
 
-/* Important Toggle Button */
-.btn-important-toggle {
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.5rem 0.8rem;
-  font-size: 0.85rem;
-  color: var(--text-dark);
-  transition: all 0.2s ease;
+.btn-important-badge:hover:not(.is-marked) {
+  background: #e2e8f0;
+  color: #4361ee;
 }
 
-.btn-important-toggle:hover {
-  background: var(--white);
-  border-color: var(--primary);
-  box-shadow: var(--shadow-sm);
+.text-truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.btn-important-toggle.active {
-  background: #fff9db;
-  border-color: #fab005;
-  color: #fab005;
-}
-
-.map-view-container {
-  height: 100%;
-}
-
-::ng-deep app-mapa #mapa {
-  height: 100% !important;
-  border-radius: 0 !important;
-}
-
-/* Custom Scrollbar */
-.reports-sidebar::-webkit-scrollbar { width: 6px; }
-.reports-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+.map-view-container { flex-grow: 1; min-height: 500px; }

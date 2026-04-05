@@ -1,68 +1,98 @@
-<div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
-  <div class="row w-100 justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card shadow rounded-4">
-        <div class="card-header text-center bg-primary text-white">
-          <h3>Registro de usuario</h3>
-        </div>
-        <form [formGroup]="registroForm" (ngSubmit)="crearUsuario()" novalidate>
-          <div class="card-body p-4">
-            <div class="mb-3">
-              <label class="form-label">Nombre</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input type="text" class="form-control" placeholder="Ingrese su nombre" formControlName="nombre">
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Correo electrónico</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                <input type="email" class="form-control" placeholder="Ingrese su correo" formControlName="email">
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Número telefónico</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                <input type="text" class="form-control" placeholder="Ingrese su número" formControlName="telefono">
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Ciudad</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-city"></i></span>
-                <select class="form-select" formControlName="ciudad">
-                  <option value="">Seleccione una ciudad</option>
-                  <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
-                </select>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Dirección</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-location-dot"></i></span>
-                <input type="text" class="form-control" placeholder="Ingrese su dirección" formControlName="direccion">
-              </div>
-            </div>
-            <div class="mb-4">
-              <label class="form-label">Contraseña</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                <input type="password" class="form-control" placeholder="Ingrese su contraseña" formControlName="password">
-              </div>
-            </div>
-            <div class="d-flex justify-content-between">
-              <button type="submit" class="btn btn-success px-4" [disabled]="registroForm.invalid">
-                <i class="fas fa-user-plus"></i> Crear cuenta
-              </button>
-              <button type="button" class="btn btn-outline-secondary px-4" (click)="goToInicio()">
-                <i class="fas fa-times"></i> Cancelar
-              </button>
+<!-- Enlace garantizado para CloudFront -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<div class="page-container d-flex justify-content-center align-items-center py-5" style="background: #f8fafc; min-height: 100vh;">
+  <div class="card shadow-lg border-0 animate__animated animate__fadeIn" style="max-width: 550px; width: 100%; border-radius: 20px;">
+    
+    <div class="card-header bg-white border-0 pt-4 pb-0 text-center">
+      <div class="icon-circle bg-primary-soft mx-auto mb-3" style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(67, 97, 238, 0.1);">
+        <i class="fa-solid fa-user-plus text-primary fs-3" style="color: #4361ee;"></i>
+      </div>
+      <h2 class="fw-bold text-dark">Crear Cuenta</h2>
+      <p class="text-muted small">Únete a la comunidad y empieza a mejorar tu ciudad.</p>
+    </div>
+
+    <form [formGroup]="registroForm" (ngSubmit)="crearUsuario()" novalidate>
+      <div class="card-body px-4 px-lg-5 pb-5">
+        
+        <div class="row g-3">
+          <!-- Nombre -->
+          <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Nombre Completo</label>
+            <div class="input-group-modern" style="position: relative; display: flex; align-items: center;">
+              <span style="position: absolute; left: 15px; color: #94a3b8; z-index: 5;"><i class="fa-solid fa-signature"></i></span>
+              <input type="text" class="form-control rounded-3 py-2 ps-5" style="background: #f1f5f9; border: 1px solid #e2e8f0;" 
+                     placeholder="Tu nombre completo" formControlName="nombre">
             </div>
           </div>
-        </form>
+
+          <!-- Email -->
+          <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Correo Electrónico</label>
+            <div class="input-group-modern" style="position: relative; display: flex; align-items: center;">
+              <span style="position: absolute; left: 15px; color: #94a3b8; z-index: 5;"><i class="fa-solid fa-envelope"></i></span>
+              <input type="email" class="form-control rounded-3 py-2 ps-5" style="background: #f1f5f9; border: 1px solid #e2e8f0;" 
+                     placeholder="correo@ejemplo.com" formControlName="email">
+            </div>
+          </div>
+
+          <!-- Teléfono -->
+          <div class="col-md-6">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Teléfono</label>
+            <div class="input-group-modern" style="position: relative; display: flex; align-items: center;">
+              <span style="position: absolute; left: 15px; color: #94a3b8; z-index: 5;"><i class="fa-solid fa-phone"></i></span>
+              <input type="text" class="form-control rounded-3 py-2 ps-5" style="background: #f1f5f9; border: 1px solid #e2e8f0;" 
+                     placeholder="Tu número" formControlName="telefono">
+            </div>
+          </div>
+
+          <!-- Ciudad -->
+          <div class="col-md-6">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Ciudad</label>
+            <div class="input-group-modern" style="position: relative; display: flex; align-items: center;">
+              <span style="position: absolute; left: 15px; color: #94a3b8; z-index: 5;"><i class="fa-solid fa-city"></i></span>
+              <select class="form-select rounded-3 py-2 ps-5" style="background: #f1f5f9; border: 1px solid #e2e8f0;" 
+                      formControlName="ciudad">
+                <option value="">Selecciona...</option>
+                <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dirección -->
+          <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Dirección</label>
+            <div class="input-group-modern" style="position: relative; display: flex; align-items: center;">
+              <span style="position: absolute; left: 15px; color: #94a3b8; z-index: 5;"><i class="fa-solid fa-map-location-dot"></i></span>
+              <input type="text" class="form-control rounded-3 py-2 ps-5" style="background: #f1f5f9; border: 1px solid #e2e8f0;" 
+                     placeholder="Calle, Carrera..." formControlName="direccion">
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-1">Contraseña</label>
+            <div class="input-group-modern" style="position: relative; display: flex; align-items: center;">
+              <span style="position: absolute; left: 15px; color: #94a3b8; z-index: 5;"><i class="fa-solid fa-lock"></i></span>
+              <input type="password" class="form-control rounded-3 py-2 ps-5" style="background: #f1f5f9; border: 1px solid #e2e8f0;" 
+                     placeholder="Mínimo 6 caracteres" formControlName="password">
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-grid gap-2 mt-4">
+          <button type="submit" class="btn btn-primary py-3 rounded-pill fw-bold shadow-sm" 
+                  style="background: #4361ee; border: none;" [disabled]="registroForm.invalid">
+            <i class="fa-solid fa-rocket me-2"></i> Crear Cuenta
+          </button>
+          <button type="button" class="btn btn-light py-2 rounded-pill fw-bold text-muted" 
+                  style="background: transparent; border: none;" (click)="goToInicio()">
+            <i class="fa-solid fa-arrow-left me-2"></i> Cancelar y Volver
+          </button>
+        </div>
+
       </div>
-    </div>
+    </form>
   </div>
 </div>

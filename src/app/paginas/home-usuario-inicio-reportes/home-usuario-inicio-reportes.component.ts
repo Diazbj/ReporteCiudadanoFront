@@ -66,18 +66,20 @@ export class HomeUsuarioInicioReportesComponent implements OnInit{
   }
 
   public getBootstrapBgClass(color: string): string {
-    switch (color) {
-      case 'azul':          return 'bg-primary';
-      case 'gris oscuro':   return 'bg-secondary';
-      case 'verde':         return 'bg-success';
-      case 'rojo':          return 'bg-danger';
-      case 'amarillo':      return 'bg-warning';
-      case 'celeste':       return 'bg-info';
-      case 'gris claro':    return 'bg-light';
-      case 'gris muy oscuro': return 'bg-dark';
-      case 'blanco':        return 'bg-white';
-      case 'transparente':  return 'bg-transparent';
-      default:              return 'bg-secondary';
+    switch (color?.toLowerCase()) {
+      case 'azul':          return 'bg-primary text-white';
+      case 'gris oscuro':   return 'bg-dark text-white';
+      case 'verde':         return 'bg-success text-white';
+      case 'rojo':          return 'bg-danger text-white';
+      case 'amarillo':      return 'bg-warning text-dark';
+      case 'celeste':       return 'bg-info text-dark';
+      case 'gris claro':    return 'bg-light text-muted';
+      case 'gris muy oscuro': return 'bg-dark text-white';
+      case 'blanco':        return 'bg-white text-dark border';
+      case 'transparente':  return 'bg-transparent text-muted';
+      case 'violeta':       return 'bg-primary text-white'; // Fallback to theme primary
+      case 'naranja':       return 'bg-warning text-white';
+      default:              return 'bg-secondary text-white';
     }
   }
 
@@ -89,8 +91,18 @@ export class HomeUsuarioInicioReportesComponent implements OnInit{
   public marcarReporteImportante(reporteId: string) {
     this.reporteService.marcarImportante(reporteId).subscribe({
       next: (data: MensajeDTO) => {
-        // Actualizar la lista de reportes para reflejar el nuevo conteo
-        this.obtenerReportesCerca();
+        // Buscamos el reporte en nuestra lista y lo marcamos localmente
+        const reporte = this.filtradosDTO.find(r => r.id === reporteId);
+        if (reporte) {
+          // Si no está marcado, lo marcamos y sumamos 1. Si ya estaba, restamos (toggle)
+          if (!reporte.marcado) {
+            reporte.marcado = true;
+            reporte.cantidadImportante++;
+          } else {
+            reporte.marcado = false;
+            reporte.cantidadImportante--;
+          }
+        }
       },
       error: (error: HttpErrorResponse) => {
         console.error('Error al marcar reporte como importante:', error);
@@ -114,4 +126,18 @@ export class HomeUsuarioInicioReportesComponent implements OnInit{
     this.mapaService.pintarMarcadores(this.filtradosDTO);
   }
 
+  public formatearFecha(fechaStr: string): string {
+    if (!fechaStr) return '';
+    try {
+      const limpia = (fechaStr || '').replace('COT ', '').replace('CST ', '');
+      const date = new Date(limpia);
+      const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+      const dia = date.getDate().toString().padStart(2, '0');
+      const mes = meses[date.getMonth()];
+      const hora = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+      return `${dia} ${mes} • ${hora}`;
+    } catch (e) {
+      return fechaStr || '';
+    }
+  }
 }

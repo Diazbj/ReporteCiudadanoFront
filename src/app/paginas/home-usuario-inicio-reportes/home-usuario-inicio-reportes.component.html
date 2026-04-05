@@ -1,64 +1,72 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <div class="dashboard-layout">
   <!-- Left Side: List of reports -->
   <aside class="reports-sidebar">
     <div class="sidebar-header d-flex justify-content-between align-items-center mb-4">
       <h4 class="fw-bold mb-0">Reportes Recientes</h4>
-      <span class="badge bg-primary-soft text-primary rounded-pill border-0">{{ reportesDTO.length }} activos</span>
+      <span class="badge bg-primary-soft text-primary rounded-pill border-0">{{ filtradosDTO.length }} activos</span>
     </div>
 
     <!-- Buscador -->
     <div class="search-box mb-4">
-      <div class="input-group">
-        <span class="input-group-text bg-white border-end-0">
-          <i class="bi bi-search text-muted"></i>
-        </span>
-        <input type="text" class="form-control border-start-0 shadow-none" placeholder="Buscar reportes..." (input)="filtrarReportes($event)">
+      <div class="input-group-modern position-relative d-flex align-items-center">
+        <span class="position-absolute ps-3 text-muted" style="z-index: 5;"><i class="fa-solid fa-magnifying-glass scale-xs"></i></span>
+        <input type="text" class="form-control rounded-pill ps-5 py-2 border-0 shadow-sm" 
+               placeholder="Buscar reportes..." (input)="filtrarReportes($event)">
       </div>
     </div>
 
     <div class="reports-scroll-area">
       <!-- Tarjeta clickeable -->
       <div *ngFor="let reporte of filtradosDTO; let i = index" 
-           class="report-card animate__animated animate__fadeInUp" 
+           class="report-card-modern animate__animated animate__fadeInUp" 
            (click)="visualizarDetalle(reporte)"
            [style.animation-delay]="(i * 0.1) + 's'">
         
-        <div class="card-header-modern mb-3">
-          <span class="category-tag bg-primary-soft text-primary">
+        <div class="card-header-modern d-flex justify-content-between align-items-start mb-3">
+          <span class="category-tag-modern" [ngClass]="obtenerColorPorCategoria(reporte.categoria)">
             {{ reporte.categoria }}
           </span>
-          <span class="report-date">{{ reporte.fechaCreacion }}</span>
+          <span class="report-date d-flex align-items-center">
+            <i class="fa-regular fa-clock me-1 opa-50"></i>
+            {{ formatearFecha(reporte.fechaCreacion) }}
+          </span>
         </div>
 
-        <h5 class="report-title">{{ reporte.titulo }}</h5>
-        <p class="report-description mb-3">{{ reporte.descripcion | slice:0:100 }}...</p>
+        <h5 class="report-title-modern">{{ reporte.titulo }}</h5>
+        <p class="report-description-modern mb-3 text-truncate-2">{{ reporte.descripcion }}</p>
 
         <div class="report-footer d-flex justify-content-between align-items-center pt-3 mt-3 border-top border-light">
-          <!-- Contador de Importante con botón interactivo -->
-          <button class="btn btn-important-toggle d-flex align-items-center gap-2" 
+          
+          <!-- Botón INTERACTIVO de "Es Importante" -->
+          <button class="btn btn-important-badge d-flex align-items-center gap-2" 
                   (click)="$event.stopPropagation(); marcarReporteImportante(reporte.id)"
-                  [class.active]="$any(reporte).marcado">
-            <i class="bi" [ngClass]="$any(reporte).marcado ? 'bi-star-fill text-warning' : 'bi-star'"></i>
-            <span class="fw-bold">{{ reporte.cantidadImportante }}</span>
-            <small class="text-muted">Importante</small>
+                  [class.is-marked]="reporte.marcado">
+            <div class="icon-pulse-container">
+              <i class="fa-heart" [ngClass]="reporte.marcado ? 'fa-solid text-danger animate__animated animate__heartBeat' : 'fa-regular text-muted'"></i>
+            </div>
+            <span class="fw-bold count-number" [style.color]="reporte.marcado ? '#4361ee' : '#64748b'">
+              {{ reporte.cantidadImportante }}
+            </span>
+            <small class="text-label" [class.fw-bold]="reporte.marcado">Importante</small>
           </button>
           
-          <div class="text-primary fs-7 fw-bold">
-            Ver detalle <i class="bi bi-chevron-right ms-1"></i>
+          <div class="btn-link-modern text-primary fs-7 fw-bold d-flex align-items-center">
+            Ver detalle <i class="fa-solid fa-chevron-right ms-2 fs-xs"></i>
           </div>
         </div>
       </div>
 
       <!-- Estado vacío -->
       <div *ngIf="filtradosDTO.length === 0" class="empty-state text-center py-5">
-        <i class="bi bi-clipboard-x display-4 text-muted"></i>
-        <p class="mt-2 text-muted">No se encontraron reportes en esta zona.</p>
+        <i class="fa-solid fa-clipboard-question display-1 text-muted opacity-25"></i>
+        <p class="mt-3 text-muted fw-bold">No se encontraron reportes en esta zona.</p>
       </div>
     </div>
   </aside>
 
   <!-- Right Side: The Map -->
-  <main class="map-view-container">
+  <main class="map-view-container position-relative">
     <app-mapa></app-mapa>
   </main>
 </div>
