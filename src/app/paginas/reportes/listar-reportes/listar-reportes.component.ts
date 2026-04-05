@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ReporteService } from '../../../servicios/reporte.service';
 import { ReporteDTO } from '../../../dto/reporte-dto';
 
 @Component({
   selector: 'app-listar-reportes',
-  imports: [CommonModule, RouterModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './listar-reportes.component.html',
   styleUrl: './listar-reportes.component.css'
 })
 export class ListarReportesComponent implements OnInit {
   reportes: ReporteDTO[] = [];
+  filtrados: ReporteDTO[] = [];
+  estadoSeleccionado: string = 'TODOS';
 
   constructor(private reporteService: ReporteService) {}
 
@@ -24,11 +28,20 @@ export class ListarReportesComponent implements OnInit {
     this.reporteService.obtenerTodosLosReportes().subscribe({
       next: (data: any) => {
         this.reportes = data.respuesta || data.mensaje || [];
+        this.filtrarPorEstado(); 
       },
       error: (err) => {
         console.error("Error cargando los reportes:", err);
       }
     });
+  }
+
+  public filtrarPorEstado() {
+    if (this.estadoSeleccionado === 'TODOS') {
+      this.filtrados = [...this.reportes];
+    } else {
+      this.filtrados = this.reportes.filter(r => r.estadoActual === this.estadoSeleccionado);
+    }
   }
 
   async cambiarEstado(reporte: ReporteDTO) {
@@ -74,4 +87,3 @@ export class ListarReportesComponent implements OnInit {
     }
   }
 }
-

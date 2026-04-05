@@ -1,80 +1,81 @@
 .glass-navbar {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border);
-  padding: 0.75rem 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.brand-text span {
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- BOTONES DE ACCESO (LOGGED OUT) --- */
+
+.btn-aut-link {
+  font-weight: 600;
+  color: #1e293b;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.btn-aut-link:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #4361ee;
+}
+
+.btn-aut-primary {
+  background: #4361ee;
+  color: #ffffff !important;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25);
   transition: all 0.3s ease;
-  z-index: 1000;
+  font-size: 0.95rem;
+  text-decoration: none;
 }
 
-.brand-text span:first-child {
-  letter-spacing: -1px;
+.btn-aut-primary:hover {
+  background: #3f37c9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(67, 97, 238, 0.3);
 }
 
-.fs-7 { font-size: 0.75rem; }
-.ls-1 { letter-spacing: 2px; }
+/* --- NAVEGACIÓN Y DROPDOWNS --- */
 
 .nav-link-modern {
-  position: relative;
   font-weight: 600;
-  color: var(--text-muted);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 99px;
+  color: #64748b;
+  padding: 8px 16px;
+  border-radius: 8px;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.nav-link-modern:hover {
-  color: var(--primary);
+.nav-link-modern:hover, .nav-link-modern.active {
   background: rgba(67, 97, 238, 0.1);
-}
-
-.nav-link-modern.active {
-  color: var(--primary);
-  background: rgba(67, 97, 238, 0.15);
-}
-
-.nav-divider {
-  width: 1px;
-  height: 24px;
-  background: var(--border);
+  color: #4361ee;
 }
 
 .user-profile-btn {
   display: flex;
   align-items: center;
-  padding: 4px 12px 4px 4px;
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 99px;
+  padding: 6px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 50px;
   text-decoration: none;
-  color: var(--text-dark);
-  transition: all 0.2s ease;
-}
-
-.user-profile-btn:hover {
-  background: var(--white);
-  box-shadow: var(--shadow-sm);
+  color: #1e293b;
 }
 
 .avatar-circle {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.dropdown-item {
-  color: var(--text-dark);
-  font-weight: 500;
-  font-size: 0.9rem;
-  padding: 0.6rem 1rem;
-}
-
-.dropdown-item:hover {
-  background: var(--background);
-  color: var(--primary);
 }

@@ -113,4 +113,16 @@ export class CategoriasComponent implements OnInit{
     });
   }
 
+  public cancelarEdicion() {
+    this.editando = false;
+    this.categoriaForm.reset();
+  }
+
+  public getHexColor(color: string): string {
+    const colors: { [key: string]: string } = {
+      'AZUL': '#4361ee', 'ROJO': '#e63946', 'VERDE': '#2a9d8f', 'AMARILLO': '#f4a261',
+      'GRIS': '#6c757d', 'CELESTE': '#4cc9f0', 'NARANJA': '#f3722c', 'VIOLETA': '#7209b7'
+    };
+    return colors[color ? color.toUpperCase() : ''] || '#6c757d';
+  }
 }

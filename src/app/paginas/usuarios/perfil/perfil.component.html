@@ -1,67 +1,89 @@
-<div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
-  <div class="row w-100 justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card shadow rounded-4">
-        <div class="card-header text-center bg-primary text-white">
-          <h3>Perfil</h3>
+<div class="page-container d-flex justify-content-center align-items-center py-5">
+  <div class="profile-card animate__animated animate__fadeInUp shadow-lg border-0">
+    
+    <!-- Profile Header/Avatar -->
+    <div class="profile-header text-center">
+      <div class="avatar-container position-relative mb-3">
+        <div class="avatar-circle mx-auto d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-user-astronaut display-2 text-white"></i>
         </div>
-        <form [formGroup]="actualizarPerfilForm" (ngSubmit)="onSubmit()" novalidate>
-          <div class="card-body p-4">
-            <div class="mb-3">
-              <label class="form-label">Nombre</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input type="text" class="form-control" placeholder="Ingrese su nombre" formControlName="nombre">
-              </div>  
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Número telefónico</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                <input type="text" class="form-control" placeholder="Ingrese su número" formControlName="telefono">
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Ciudad</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-city"></i></span>
-                <select class="form-select" formControlName="ciudad">
-                  <option value="">Seleccione una ciudad</option>
-                  <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
-                </select>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Dirección</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-location-dot"></i></span>
-                <input type="text" class="form-control" placeholder="Ingrese su dirección" formControlName="direccion">
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mt-4">
-              <!-- Cuando NO está editando -->
-              <ng-container *ngIf="!editando">
-                <button type="button" class="btn btn-primary px-4" (click)="activarEdicion()">
-                  <i class="fas fa-edit"></i> Editar
-                </button>
-                <button type="button" class="btn btn-outline-secondary px-4" (click)="cancelar()">
-                  <i class="fas fa-arrow-left"></i> Volver a inicio
-                </button>
-              </ng-container>
+        <div class="status-indicator online"></div>
+      </div>
+      <h2 class="fw-bold text-dark mb-1">{{ actualizarPerfilForm.get('nombre')?.value || 'Usuario' }}</h2>
+      <p class="text-muted small text-uppercase fw-bold ls-1">Ciudadano Participativo</p>
+    </div>
 
-              <!-- Cuando SÍ está editando -->
-              <ng-container *ngIf="editando">
-                <button type="submit" class="btn btn-success px-4" [disabled]="actualizarPerfilForm.invalid">
-                  <i class="fas fa-check"></i> Guardar Cambios
-                </button>
-                <button type="button" class="btn btn-outline-secondary px-4" (click)="cancelar()">
-                  <i class="fas fa-times"></i> Cancelar
-                </button>
-              </ng-container>
+    <!-- Form Section -->
+    <div class="profile-body p-4 p-lg-5">
+      <form [formGroup]="actualizarPerfilForm" (ngSubmit)="onSubmit()" novalidate>
+        
+        <div class="row g-4">
+          <!-- Full Name -->
+          <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-2">Nombre Completo</label>
+            <div class="input-group-modern">
+              <span class="input-icon"><i class="fa-solid fa-user-pen"></i></span>
+              <input type="text" class="form-control-modern" placeholder="Tu nombre" formControlName="nombre" 
+                     [readonly]="!editando">
             </div>
           </div>
-        </form>
-      </div>
+
+          <!-- Phone Number -->
+          <div class="col-md-6">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-2">Teléfono</label>
+            <div class="input-group-modern">
+              <span class="input-icon"><i class="fa-solid fa-phone-volume"></i></span>
+              <input type="text" class="form-control-modern" placeholder="Tu número" formControlName="telefono"
+                     [readonly]="!editando">
+            </div>
+          </div>
+
+          <!-- City -->
+          <div class="col-md-6">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-2">Ciudad</label>
+            <div class="input-group-modern">
+              <span class="input-icon"><i class="fa-solid fa-building-flag"></i></span>
+              <select class="form-select-modern" formControlName="ciudad" [attr.disabled]="!editando ? '' : null">
+                <option value="">Selecciona tu ciudad</option>
+                <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-2">Dirección de Residencia</label>
+            <div class="input-group-modern">
+              <span class="input-icon"><i class="fa-solid fa-map-location-dot"></i></span>
+              <input type="text" class="form-control-modern" placeholder="Tu dirección" formControlName="direccion"
+                     [readonly]="!editando">
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-5 d-flex flex-column flex-sm-row gap-3">
+          <!-- Viewing State -->
+          <ng-container *ngIf="!editando">
+            <button type="button" class="btn btn-primary-modern flex-grow-1 py-3" (click)="activarEdicion()">
+              <i class="fa-solid fa-user-gear me-2"></i> Editar mi Perfil
+            </button>
+            <button type="button" class="btn btn-light-modern px-4 py-3" (click)="cancelar()">
+              <i class="fa-solid fa-house me-2"></i> Volver
+            </button>
+          </ng-container>
+
+          <!-- Editing State -->
+          <ng-container *ngIf="editando">
+            <button type="submit" class="btn btn-success-modern flex-grow-1 py-3" [disabled]="actualizarPerfilForm.invalid">
+              <i class="fa-solid fa-cloud-arrow-up me-2"></i> Guardar Cambios
+            </button>
+            <button type="button" class="btn btn-light-modern px-4 py-3" (click)="cancelar()">
+              Finalizar
+            </button>
+          </ng-container>
+        </div>
+      </form>
     </div>
   </div>
 </div>

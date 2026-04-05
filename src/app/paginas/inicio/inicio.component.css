@@ -1,1 +1,87 @@
-/* Todos los estilos personalizados han sido reemplazados por utilidades de Bootstrap. */
+.landing-page-hero {
+  background: radial-gradient(circle at top right, rgba(67, 97, 238, 0.05), transparent),
+              radial-gradient(circle at bottom left, rgba(67, 97, 238, 0.05), transparent);
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: 4rem;
+  letter-spacing: -2px;
+  color: #1e293b;
+}
+
+.text-primary-gradient {
+  background: linear-gradient(135deg, #4361ee 0%, #b517be 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-text {
+  color: #64748b;
+  max-width: 550px;
+  line-height: 1.6;
+}
+
+.hero-image-container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-image-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(67, 97, 238, 0.1) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.hero-image {
+  box-shadow: 0 50px 100px -20px rgba(50, 50, 93, 0.25), 
+              0 30px 60px -30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.02);
+}
+
+/* Feature Cards */
+.icon-box {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+}
+
+.bg-blue { background: #eef2ff; }
+.bg-red { background: #fee2e2; }
+.bg-green { background: #f0fdf4; }
+
+.hover-lift {
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.hover-lift:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: #4361ee !important;
+}
+
+.bg-primary-soft {
+  background: rgba(67, 97, 238, 0.1);
+}
+
+@media (max-width: 991px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+}

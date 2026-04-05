@@ -1,15 +1,78 @@
-<div class="container my-5">
-    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-        <h1 class="display-4 fw-bold lh-1 text-body-emphasis">Plataforma de Reportes Ciudadanos</h1>
-        <p class="lead">Una aplicación que permite a los ciudadanos reportar incidentes de seguridad, emergencias médicas, problemas de infraestructura y más, de forma rápida y sencilla.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold" (click)="irLogin()">Iniciar sesión</button>
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4" (click)="irRegistro()">Registrarse</button>
+<div class="landing-page-hero">
+  <div class="container py-lg-5">
+    <div class="row align-items-center">
+      <!-- Text Side -->
+      <div class="col-lg-6 mb-5 mb-lg-0 animate__animated animate__fadeInLeft">
+        <span class="badge bg-primary-soft text-primary rounded-pill px-3 py-2 mb-3 fw-bold">
+          <i class="fa-solid fa-location-dot me-1"></i> Participación Ciudadana
+        </span>
+        <h1 class="hero-title display-3 fw-bold lh-1 mb-4">
+          Transforma tu ciudad en un <span class="text-primary-gradient">mejor lugar.</span>
+        </h1>
+        <p class="hero-text lead mb-5">
+          Reporta incidentes de infraestructura, seguridad o emergencias en tiempo real. 
+          Juntos podemos construir una comunidad más segura y conectada.
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-3">
+          <button class="btn btn-primary btn-lg rounded-pill px-5 shadow-lg border-0 fw-bold" 
+                  style="background-color: #4361ee; padding: 15px 30px;" (click)="irLogin()">
+            Comenzar Reporte <i class="fa-solid fa-arrow-right ms-2"></i>
+          </button>
+          <button class="btn btn-outline-secondary btn-lg rounded-pill px-5 fw-bold" 
+                  style="padding: 15px 30px;" (click)="irRegistro()">
+            Crear mi Cuenta
+          </button>
         </div>
       </div>
-      <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-          <img class="rounded-lg-3" src="reportes_ciudadanos_ilustracion.png" alt="" width="720">
+
+      <!-- Image Side -->
+      <div class="col-lg-6 animate__animated animate__fadeInRight">
+        <div class="hero-image-container ms-lg-4 text-center">
+          <img src="assets/img/landing_hero_city.png" 
+               alt="Smart City Illustration" 
+               class="img-fluid rounded-4 shadow-lg hero-image">
+        </div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Features Section -->
+<div class="features-section py-5 bg-white">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold fs-1">¿Qué puedes reportar?</h2>
+      <p class="text-muted">Ayúdanos a identificar y solucionar problemas urbanos rápidamente.</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card h-100 p-4 border rounded-4 text-center glass-card hover-lift">
+          <div class="icon-box bg-blue mb-4 mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background: #eef2ff; border-radius: 20px;">
+            <i class="fa-solid fa-tools fs-2 text-primary"></i>
+          </div>
+          <h4 class="fw-bold">Infraestructura</h4>
+          <p class="text-muted">Huecos en la vía, semáforos dañados o iluminación pública deficiente.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card h-100 p-4 border rounded-4 text-center glass-card hover-lift">
+          <div class="icon-box bg-red mb-4 mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background: #fee2e2; border-radius: 20px;">
+            <i class="fa-solid fa-shield-halved fs-2 text-danger"></i>
+          </div>
+          <h4 class="fw-bold">Seguridad</h4>
+          <p class="text-muted">Reporta incidentes sospechosos o situaciones de riesgo en tu zona.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card h-100 p-4 border rounded-4 text-center glass-card hover-lift">
+          <div class="icon-box bg-green mb-4 mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px; background: #f0fdf4; border-radius: 20px;">
+            <i class="fa-solid fa-heart-pulse fs-2 text-success"></i>
+          </div>
+          <h4 class="fw-bold">Mascotas</h4>
+          <p class="text-muted">Encontraste una mascota perdida o necesitas reportar maltrato animal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
