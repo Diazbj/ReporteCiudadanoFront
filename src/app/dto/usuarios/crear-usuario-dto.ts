@@ -1,3 +1,5 @@
+import { UbicacionDTO } from '../ubicacion-dto';
+
 export interface CrearUsuarioDTO {
     nombre: string;
     telefono: string;
@@ -5,4 +7,5 @@ export interface CrearUsuarioDTO {
     direccion: string;
     email: string;
     password: string;
+    ubicacion?: UbicacionDTO;
 }

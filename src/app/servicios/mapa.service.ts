@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import { ReporteDTO } from '../dto/reporte-dto';
+import { environment } from '../../environments/environment';
 
 @Injectable({
  providedIn: 'root'
@@ -18,16 +19,35 @@ export class MapaService {
     this.posicionActual = [-75.67270, 4.53252];
   }
 
+  public getPosicionActual(): Promise<mapboxgl.LngLat> {
+    return new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            resolve(new mapboxgl.LngLat(pos.coords.longitude, pos.coords.latitude));
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+      } else {
+        reject('Geolocation is not supported by this browser.');
+      }
+    });
+  }
 
-  public crearMapa() {
+
+
+  public crearMapa(containerId: string = 'mapa') {
     this.mapa = new mapboxgl.Map({
-      accessToken: 'pk.eyJ1Ijoiam9obmNpZnVlbnRlcyIsImEiOiJjbWFsdnYxY3YwZXhlMnRvb2FiY2NudmhiIn0.BmAMLvW1EnR8cDWOlEKmKQ',
-      container: 'mapa',
+      accessToken: environment.mapboxToken,
+      container: containerId,
       style: 'mapbox://styles/mapbox/standard',
       center: this.posicionActual,
       pitch: 45,
       zoom: 17
     });
+
 
     this.mapa.addControl(new mapboxgl.NavigationControl());
     this.mapa.addControl(

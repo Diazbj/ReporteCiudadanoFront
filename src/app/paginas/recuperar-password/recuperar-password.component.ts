@@ -18,6 +18,9 @@ import { UsuarioNuevoCodigoDTO } from '../../dto/usuarios/usuario-nuevo-codigo-d
 export class RecuperarPasswordComponent {
 
   recuperarForm!: FormGroup;
+  mostrarPassword: boolean = false;
+  mostrarConfirmarPassword: boolean = false;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -91,6 +94,14 @@ export class RecuperarPasswordComponent {
         Swal.fire('Error', mensaje, 'error');
       }
     });
+  }
+
+  public toggleMostrarPassword() {
+    this.mostrarPassword = !this.mostrarPassword;
+  }
+
+  public toggleMostrarConfirmarPassword() {
+    this.mostrarConfirmarPassword = !this.mostrarConfirmarPassword;
   }
 
 }

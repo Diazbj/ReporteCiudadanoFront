@@ -130,3 +130,32 @@
   .profile-card { border-radius: 0; }
   .profile-body { padding: 2rem 1.5rem !important; }
 }
+
+.location-status {
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.extra-small {
+  font-size: 0.75rem;
+}
+
+.bg-success-subtle {
+  background-color: #e6fffa;
+}
+
+.bg-warning-subtle {
+  background-color: #fffaf0;
+}
+
+.map-container-wrapper {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}

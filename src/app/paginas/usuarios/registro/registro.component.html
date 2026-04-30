@@ -78,7 +78,20 @@
                      placeholder="Mínimo 6 caracteres" formControlName="password">
             </div>
           </div>
+          <!-- Map Selection -->
+          <div class="col-12 mt-4">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-2">
+              Selecciona tu zona de alertas (500m)
+            </label>
+            <div class="map-container-wrapper shadow-sm rounded-4 overflow-hidden border" style="position: relative;">
+              <div id="mapa-registro" style="width: 100%; height: 250px;"></div>
+              <div class="extra-small text-muted p-2 bg-light border-top">
+                <i class="fa-solid fa-circle-info me-1"></i> Haz clic en el mapa para marcar dónde quieres recibir notificaciones.
+              </div>
+            </div>
+          </div>
         </div>
+
 
         <!-- Buttons -->
         <div class="d-grid gap-2 mt-4">

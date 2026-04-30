@@ -19,6 +19,12 @@ export class LoginComponent {
 
   loginForm!: FormGroup;
   cargando: boolean = false;
+  mostrarPassword: boolean = false;
+
+  public togglePassword() {
+    this.mostrarPassword = !this.mostrarPassword;
+  }
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -88,6 +94,11 @@ export class LoginComponent {
       });
     }, 1000); // 1 segundo de espera
   }
+
+  public toggleMostrarPassword() {
+    this.mostrarPassword = !this.mostrarPassword;
+  }
+
 
   public enviarNuevoCodigoActivacion(): void {
     const email = this.loginForm.get('email')?.value;

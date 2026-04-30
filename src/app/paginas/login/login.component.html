@@ -1,49 +1,71 @@
-<!-- Asegúrate de incluir Bootstrap 5 y Font Awesome en tu proyecto -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<!-- Enlace para Font Awesome 6 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
-    <div class="text-center mb-4">
-      <hr>
-      <h1 class="h4 fw-bold">Iniciar Sesión</h1>
-      <hr>
+<div class="login-container d-flex justify-content-center align-items-center py-5">
+  <div class="login-card shadow-lg border-0 animate__animated animate__fadeIn">
+    
+    <div class="login-header text-center">
+      <div class="icon-circle mx-auto mb-4 d-flex align-items-center justify-content-center">
+        <i class="fa-solid fa-right-to-bracket text-white display-5"></i>
+      </div>
+      <h2 class="fw-bold text-dark mb-1">Bienvenido</h2>
+      <p class="text-muted small">Ingresa tus credenciales para continuar</p>
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
-      <div class="mb-3">
-        <label for="email" class="form-label">Correo electrónico</label>
-        <div class="input-group">
-          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-          <input type="text" id="email" class="form-control" placeholder="Ingrese su correo electrónico" formControlName="email">
+      <div class="p-4 p-lg-5">
+        
+        <div class="row g-4">
+          <!-- Email -->
+          <div class="col-12">
+            <label class="form-label small fw-bold text-muted text-uppercase mb-2">Correo Electrónico</label>
+            <div class="input-group-modern">
+              <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
+              <input type="email" class="form-control-modern" 
+                     placeholder="correo@ejemplo.com" formControlName="email">
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <label class="form-label small fw-bold text-muted text-uppercase mb-0">Contraseña</label>
+                <a routerLink="/recuperar-password" class="extra-small text-decoration-none fw-bold" style="color: #4361ee;">¿La olvidaste?</a>
+            </div>
+            <div class="input-group-modern">
+              <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
+              <input [type]="mostrarPassword ? 'text' : 'password'" 
+                     class="form-control-modern pe-5" 
+                     placeholder="Tu contraseña" formControlName="password">
+              <span (click)="togglePassword()" class="password-toggle">
+                <i class="fa-solid" [ngClass]="mostrarPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label">Contraseña</label>
-        <div class="input-group">
-          <span class="input-group-text"><i class="fas fa-lock"></i></span>
-          <input type="password" id="password" class="form-control" placeholder="Ingrese su contraseña" formControlName="password">
+        <!-- Spinner -->
+        <div *ngIf="cargando" class="d-flex justify-content-center my-4">
+          <div class="spinner-custom"></div>
         </div>
-      </div>
 
-      <div class="mb-3 text-end">
-        <a id="recuperarContrasena" routerLink="/recuperar-password" class="text-decoration-none">¿Olvidó su contraseña?</a>
-      </div>
-
-      <div *ngIf="cargando" class="d-flex justify-content-center my-3">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Cargando...</span>
+        <!-- Buttons -->
+        <div class="d-grid gap-3 mt-5">
+          <button type="submit" id="buttonIngresar" class="btn btn-primary-modern py-3" 
+                  [disabled]="loginForm.invalid || cargando">
+            <i class="fa-solid fa-right-to-bracket me-2"></i> Iniciar Sesión
+          </button>
+          <button type="button" class="btn btn-light-modern py-3" (click)="goToInicio()">
+            <i class="fa-solid fa-arrow-left me-2"></i> Volver al Inicio
+          </button>
         </div>
-      </div>
 
-      <div class="d-grid gap-2">
-        <button type="submit" id="buttonIngresar" class="btn btn-primary" [disabled]="loginForm.invalid">
-          <i class="fas fa-sign-in-alt me-2"></i>Ingresar
-        </button>
-        <button type="button" id="cancelar" class="btn btn-secondary" (click)="goToInicio()">
-          <i class="fas fa-times me-2"></i>Cancelar
-        </button>
+        <div class="text-center mt-4 pt-2">
+            <p class="small text-muted mb-0">¿No tienes una cuenta? 
+                <a routerLink="/registro" class="fw-bold text-decoration-none" style="color: #4361ee;">Regístrate gratis</a>
+            </p>
+        </div>
+
       </div>
     </form>
   </div>
