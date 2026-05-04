@@ -55,8 +55,7 @@ jobs:
 
       - name: Sync to S3
         run: |
-          aws s3 sync ./dist/proyecto-alertas-front/ s3://bucket-s3reporte-ciudadanos/ --delete
-
+          aws s3 sync ./dist/proyecto-alertas-front/browser/ s3://bucket-s3reporte-ciudadanos/ --delete
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
