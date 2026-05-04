@@ -1,0 +1,9 @@
+[playwright-testrail-reporter] ❌ TestRail configuration errors detected:
+[playwright-testrail-reporter]    Missing required variables: TESTRAIL_HOST, TESTRAIL_USERNAME, TESTRAIL_PROJECT_ID, TESTRAIL_SUITE_ID, TESTRAIL_API_KEY or TESTRAIL_PASSWORD
+[playwright-testrail-reporter]    Invalid values: TESTRAIL_PROJECT_ID (must be a positive number), TESTRAIL_SUITE_ID (must be a positive number)
+[playwright-testrail-reporter] ℹ️  Please check your environment variables. Common issues:
+[playwright-testrail-reporter]    - Remove extra quotes: Use TESTRAIL_HOST=https://... not TESTRAIL_HOST="'https://...'"
+[playwright-testrail-reporter]    - Replace placeholder text with actual values
+[playwright-testrail-reporter]    - Ensure numeric IDs are valid positive integers
+[playwright-testrail-reporter]    - Use your actual TestRail domain (e.g., company.testrail.io)
+[playwright-testrail-reporter]    - Set all required variables listed above
