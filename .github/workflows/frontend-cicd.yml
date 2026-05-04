@@ -21,6 +21,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate environment files
+        run: |
+          mkdir -p src/environments
+          cat <<EOF > src/environments/environment.ts
+          export const environment = {
+            production: false,
+            apiUrl: '/api',
+            mapboxToken: '${{ secrets.MAPBOX_TOKEN }}'
+          };
+          EOF
+          cat <<EOF > src/environments/environment.prod.ts
+          export const environment = {
+            production: true,
+            apiUrl: '/api',
+            mapboxToken: '${{ secrets.MAPBOX_TOKEN }}'
+          };
+          EOF
+
       - name: Build Angular
         run: npm run build
 
