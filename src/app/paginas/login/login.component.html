@@ -3,7 +3,7 @@
 
 <div class="login-container d-flex justify-content-center align-items-center py-5">
   <div class="login-card shadow-lg border-0 animate__animated animate__fadeIn">
-    
+
     <div class="login-header text-center">
       <div class="icon-circle mx-auto mb-4 d-flex align-items-center justify-content-center">
         <i class="fa-solid fa-right-to-bracket text-white display-5"></i>
@@ -14,29 +14,28 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
       <div class="p-4 p-lg-5">
-        
+
         <div class="row g-4">
           <!-- Email -->
           <div class="col-12">
             <label class="form-label small fw-bold text-muted text-uppercase mb-2">Correo Electrónico</label>
             <div class="input-group-modern">
               <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
-              <input type="email" class="form-control-modern" 
-                     placeholder="correo@ejemplo.com" formControlName="email">
+              <input type="email" class="form-control-modern" placeholder="correo@ejemplo.com" formControlName="email">
             </div>
           </div>
 
           <!-- Password -->
           <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <label class="form-label small fw-bold text-muted text-uppercase mb-0">Contraseña</label>
-                <a routerLink="/recuperar-password" class="extra-small text-decoration-none fw-bold" style="color: #4361ee;">¿La olvidaste?</a>
+              <label class="form-label small fw-bold text-muted text-uppercase mb-0">Contraseña</label>
+              <a routerLink="/recuperar-password" class="extra-small text-decoration-none fw-bold"
+                style="color: #4361ee;">¿La olvidaste?</a>
             </div>
             <div class="input-group-modern">
               <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
-              <input [type]="mostrarPassword ? 'text' : 'password'" 
-                     class="form-control-modern pe-5" 
-                     placeholder="Tu contraseña" formControlName="password">
+              <input [type]="mostrarPassword ? 'text' : 'password'" class="form-control-modern pe-5"
+                placeholder="Tu contraseña" formControlName="password">
               <span (click)="togglePassword()" class="password-toggle">
                 <i class="fa-solid" [ngClass]="mostrarPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
               </span>
@@ -51,8 +50,8 @@
 
         <!-- Buttons -->
         <div class="d-grid gap-3 mt-5">
-          <button type="submit" id="buttonIngresar" class="btn btn-primary-modern py-3" 
-                  [disabled]="loginForm.invalid || cargando">
+          <button type="submit" id="buttonIngresar" class="btn btn-primary-modern py-3"
+            [disabled]="loginForm.invalid || cargando">
             <i class="fa-solid fa-right-to-bracket me-2"></i> Iniciar Sesión
           </button>
           <button type="button" class="btn btn-light-modern py-3" (click)="goToInicio()">
@@ -61,9 +60,9 @@
         </div>
 
         <div class="text-center mt-4 pt-2">
-            <p class="small text-muted mb-0">¿No tienes una cuenta? 
-                <a routerLink="/registro" class="fw-bold text-decoration-none" style="color: #4361ee;">Regístrate gratis</a>
-            </p>
+          <p class="small text-muted mb-0">¿No tienes una cuenta?
+            <a routerLink="/registro" class="fw-bold text-decoration-none" style="color: #4361ee;">Regístrate gratis</a>
+          </p>
         </div>
 
       </div>
