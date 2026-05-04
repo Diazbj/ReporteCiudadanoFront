@@ -44,3 +44,5 @@ Thumbs.db
 # Environments
 src/environments/environment.prod.ts
 src/environments/environment.ts
+playwright-report/
+test-results/
