@@ -8,13 +8,7 @@ export default defineConfig({
   workers: process.env['CI'] ? 1 : undefined,
   reporter: [
     ['html'],
-    ['playwright-testrail-reporter', {
-      baseUrl: 'https://reportes.testrail.io',
-      username: process.env['TESTRAIL_USERNAME'],
-      password: process.env['TESTRAIL_API_KEY'],
-      projectId: 1,
-      suiteId: 6,
-    }]
+    ['playwright-testrail-reporter']
   ],
   use: {
     baseURL: process.env['BASE_URL'] || 'http://localhost:4200',

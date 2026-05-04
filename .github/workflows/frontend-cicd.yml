@@ -82,5 +82,8 @@ jobs:
           npx playwright install --with-deps
           BASE_URL=https://ddk7dwdwbctba.cloudfront.net/ npx playwright test
         env:
+          TESTRAIL_HOST: ${{ secrets.TESTRAIL_HOST }}
           TESTRAIL_USERNAME: ${{ secrets.TESTRAIL_USERNAME }}
           TESTRAIL_API_KEY: ${{ secrets.TESTRAIL_API_KEY }}
+          TESTRAIL_PROJECT_ID: ${{ secrets.TESTRAIL_PROJECT_ID }}
+          TESTRAIL_SUITE_ID: ${{ secrets.TESTRAIL_SUITE_ID }}
